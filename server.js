@@ -21,7 +21,7 @@ var event = require('./routes/event');
 var weather = require('./routes/weather-server');
 var validate = require('./routes/validate');
 
-var port = 3000;
+//var port = 3000;
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
 app.engine('html',require('ejs').renderFile);
@@ -54,6 +54,7 @@ function redirectInvalidRouters(req,res){
 }
 app.use(redirectInvalidRouters);
 
-app.listen(port,()=>{
-    console.log('Serveris up and running on port: '+port);
-})
+app.listen(process.env.PORT || 3000, function(){
+  console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+});
+
