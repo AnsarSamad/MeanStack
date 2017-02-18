@@ -1,0 +1,13 @@
+
+
+<input type="text" [(ngModel)]="address" id="address" name="address">
+<input type="button" value="Search" (click)="getWeatherData()">
+
+<div *ngIf="isSuccess">
+
+   <span> address : {{weatherObj?.address}}</span>
+   <span> summary : {{weatherObj?.summary}}</span>
+   <span> temperature : {{weatherObj?.temperature}}</span>
+   <span> humidity: {{weatherObj?.humidity}}</span>
+
+</div>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- This file has been downloaded from Bootsnipp.com. Enjoy! -->
+    <title>Simplest contact form - Bootsnipp.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+        body {padding-top:20px;}
+    </style>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<div class="row">
+      <div class="col-md-6 col-md-offset-3">
+        <div class="well well-sm">
+          <form #eventForm="ngForm" (ngSubmit)="addEvent(eventForm)" >
+          <fieldset>
+            <legend class="text-center">Add New Event</legend>
+    
+            <!-- title input-->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="title">Event Title</label>
+              <div class="col-md-9">
+                <input id="title" name="title" type="text" ngModel placeholder="Event title" class="form-control">
+              </div>
+            </div>
+    
+            <!-- Descr input-->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="descr">Event Descr</label>
+              <div class="col-md-9">
+                <input id="descr" name="descr" type="text" ngModel placeholder="Event Description" class="form-control">
+              </div>
+            </div>
+    
+                <!-- PLace -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="place">Event Place</label>
+              <div class="col-md-9">
+                <input class="form-control" id="place" name="place" ngModel placeholder="Event Place">
+              </div>
+            </div>
+
+          <!-- Fees -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="fees">Event Fees</label>
+              <div class="col-md-9">
+                <input class="form-control" id="fees" name="fees" ngModel placeholder="Event Fees">
+              </div>
+            </div>
+
+            <!-- PLace -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="tsk_title">Task Title</label>
+              <div class="col-md-9">
+                <input class="form-control" id="tsk_title" name="tsk_title" ngModel placeholder="Task Title">
+              </div>
+            </div>
+
+                        <!-- PLace -->
+            <div class="form-group">
+              <label class="col-md-3 control-label" for="tsk_content">Task Content</label>
+              <div class="col-md-9">
+                <input class="form-control" id="tsk_content" name="tsk_content" ngModel placeholder="Task Content">
+              </div>
+            </div>
+
+             <div class="form-group">
+              <label class="col-md-3 control-label" for="tsk_price">Task Price</label>
+              <div class="col-md-9">
+                <input class="form-control" id="tsk_price" name="tsk_price" ngModel placeholder="Task Price">
+              </div>
+            </div>
+    
+            <!-- Form actions -->
+            <div class="form-group">
+              <div class="col-md-12 text-right">
+                <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+              </div>
+            </div>
+          </fieldset>
+          </form>
+        </div>
+      </div>
+	</div>
+</div>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
