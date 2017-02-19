@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-const router_1 = require('@angular/router');
-const http_1 = require('@angular/http');
+const core_1 = require("@angular/core");
+const router_1 = require("@angular/router");
+const http_1 = require("@angular/http");
 let RegisterComponent = class RegisterComponent {
     constructor(http, router) {
         this.http = http;
@@ -33,8 +33,8 @@ RegisterComponent = __decorate([
         moduleId: module.id,
         selector: 'signup',
         templateUrl: '../html/register.component.html'
-    }), 
-    __metadata('design:paramtypes', [http_1.Http, router_1.Router])
+    }),
+    __metadata("design:paramtypes", [http_1.Http, router_1.Router])
 ], RegisterComponent);
 exports.RegisterComponent = RegisterComponent;
 //# sourceMappingURL=register.component.js.map

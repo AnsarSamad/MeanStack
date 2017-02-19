@@ -1,7 +1,7 @@
 "use strict";
-const app_component_1 = require('./app.component');
-const testing_1 = require('@angular/core/testing');
-const platform_browser_1 = require('@angular/platform-browser');
+const app_component_1 = require("./app.component");
+const testing_1 = require("@angular/core/testing");
+const platform_browser_1 = require("@angular/platform-browser");
 describe('AppComponent', function () {
     let de;
     let comp;

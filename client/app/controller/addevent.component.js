@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-const addevent_service_1 = require('../service/addevent.service');
+const core_1 = require("@angular/core");
+const addevent_service_1 = require("../service/addevent.service");
 let AddNewEventComponent = class AddNewEventComponent {
     // constructor(private http:Http){
     // }
@@ -39,8 +39,8 @@ AddNewEventComponent = __decorate([
         moduleId: module.id,
         selector: 'newEvent',
         templateUrl: '../html/addevent.component.html'
-    }), 
-    __metadata('design:paramtypes', [addevent_service_1.AddEventService])
+    }),
+    __metadata("design:paramtypes", [addevent_service_1.AddEventService])
 ], AddNewEventComponent);
 exports.AddNewEventComponent = AddNewEventComponent;
 //# sourceMappingURL=addevent.component.js.map

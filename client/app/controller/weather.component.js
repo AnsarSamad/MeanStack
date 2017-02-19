@@ -8,8 +8,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-const http_1 = require('@angular/http');
+const core_1 = require("@angular/core");
+const http_1 = require("@angular/http");
 let WeatherComponent = class WeatherComponent {
     constructor(http) {
         this.http = http;
@@ -31,8 +31,8 @@ WeatherComponent = __decorate([
         moduleId: module.id,
         selector: 'weather',
         templateUrl: '../html/weather.component.html'
-    }), 
-    __metadata('design:paramtypes', [http_1.Http])
+    }),
+    __metadata("design:paramtypes", [http_1.Http])
 ], WeatherComponent);
 exports.WeatherComponent = WeatherComponent;
 //# sourceMappingURL=weather.component.js.map

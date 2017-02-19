@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-const event_service_1 = require('../service/event.service');
-require('rxjs/Rx');
+const core_1 = require("@angular/core");
+const event_service_1 = require("../service/event.service");
+require("rxjs/Rx");
 let EventComponent = class EventComponent {
     constructor(eventService) {
         eventService.getEvents()
@@ -25,8 +25,8 @@ EventComponent = __decorate([
         moduleId: module.id,
         selector: 'event',
         templateUrl: '../html/event.component.html'
-    }), 
-    __metadata('design:paramtypes', [event_service_1.EventService])
+    }),
+    __metadata("design:paramtypes", [event_service_1.EventService])
 ], EventComponent);
 exports.EventComponent = EventComponent;
 //# sourceMappingURL=event.component.js.map

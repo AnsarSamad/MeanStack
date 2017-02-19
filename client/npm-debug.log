@@ -9,7 +9,7 @@
 6 silly lifecycle mytasklist@1.0.0~prestart: no script for prestart, continuing
 7 info lifecycle mytasklist@1.0.0~start: mytasklist@1.0.0
 8 verbose lifecycle mytasklist@1.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle mytasklist@1.0.0~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;G:\mywork\Node\MyTaskList\client\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\bat;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Git\cmd;;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\ansar\AppData\Roaming\npm
+9 verbose lifecycle mytasklist@1.0.0~start: PATH: C:\Program Files\nodejs\node_modules\npm\bin\node-gyp-bin;G:\mywork\Node\MyTaskList\client\node_modules\.bin;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\nodejs\;C:\Program Files\Intel\WiFi\bin\;C:\Program Files\Common Files\Intel\WirelessCommon\;C:\bat;C:\Program Files (x86)\Skype\Phone\;C:\Program Files\Git\cmd;;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\ansar\AppData\Roaming\npm;C:\Program Files\Heroku\bin
 10 verbose lifecycle mytasklist@1.0.0~start: CWD: G:\mywork\Node\MyTaskList\client
 11 silly lifecycle mytasklist@1.0.0~start: Args: [ '/d /s /c', 'tsc && concurrently "tsc -w" "lite-server" ' ]
 12 silly lifecycle mytasklist@1.0.0~start: Returned: code: 3221225786  signal: null

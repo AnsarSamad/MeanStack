@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var mongoose  =  require('mongoose');
 var Event = require('../db/db');
-
-var DB_PATH = 'mongodb://localhost:27017/MyTask';
-mongoose.connect(DB_PATH);
+// var path = require('path');
+// var PropertiesReader = require('properties-reader');
+// var properties = PropertiesReader(path.join(__dirname,'../db/config.properties'));
+// var url = properties.get('db.url');
+// mongoose.connect(url);
 
 // console.log('inserting sample event :');
 // var tpl = new Event();

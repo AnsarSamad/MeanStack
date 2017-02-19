@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-const http_1 = require('@angular/http');
-const router_1 = require('@angular/router');
+const core_1 = require("@angular/core");
+const http_1 = require("@angular/http");
+const router_1 = require("@angular/router");
 let LoginComponent = class LoginComponent {
     constructor(http, router) {
         this.http = http;
@@ -37,8 +37,8 @@ LoginComponent = __decorate([
         moduleId: module.id,
         selector: 'login',
         templateUrl: '../html/login.component.html'
-    }), 
-    __metadata('design:paramtypes', [http_1.Http, router_1.Router])
+    }),
+    __metadata("design:paramtypes", [http_1.Http, router_1.Router])
 ], LoginComponent);
 exports.LoginComponent = LoginComponent;
 //# sourceMappingURL=login.component.js.map

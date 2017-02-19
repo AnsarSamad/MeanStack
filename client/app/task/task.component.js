@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require('@angular/core');
-const task_service_1 = require('./task.service');
-require('rxjs/Rx');
+const core_1 = require("@angular/core");
+const task_service_1 = require("./task.service");
+require("rxjs/Rx");
 let TaskComponent = class TaskComponent {
     constructor(taskService) {
         this.taskService = taskService;
@@ -26,8 +26,8 @@ TaskComponent = __decorate([
         moduleId: module.id,
         selector: 'task',
         templateUrl: 'task.component.html'
-    }), 
-    __metadata('design:paramtypes', [task_service_1.TaskService])
+    }),
+    __metadata("design:paramtypes", [task_service_1.TaskService])
 ], TaskComponent);
 exports.TaskComponent = TaskComponent;
 //# sourceMappingURL=task.component.js.map

@@ -5,26 +5,23 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-const core_1 = require('@angular/core');
-const platform_browser_1 = require('@angular/platform-browser');
-const task_service_1 = require('../app/task/task.service');
-const task_component_1 = require('../app/task/task.component');
-const app_component_1 = require('./app.component');
-const forms_1 = require('@angular/forms');
-const http_1 = require('@angular/http');
-const router_1 = require('@angular/router');
-const addtask_component_1 = require('./task/addtask.component');
-const event_component_1 = require('../app/controller/event.component');
-const event_service_1 = require('../app/service/event.service');
-const addevent_component_1 = require('../app/controller/addevent.component');
-const addevent_service_1 = require('../app/service/addevent.service');
-const weather_component_1 = require('../app/controller/weather.component');
-const login_component_1 = require('../app/controller/login.component');
-const register_component_1 = require('../app/controller/register.component');
-const dashboard_component_1 = require('../app/controller/dashboard.component');
+const core_1 = require("@angular/core");
+const platform_browser_1 = require("@angular/platform-browser");
+const task_service_1 = require("../app/task/task.service");
+const task_component_1 = require("../app/task/task.component");
+const app_component_1 = require("./app.component");
+const forms_1 = require("@angular/forms");
+const http_1 = require("@angular/http");
+const router_1 = require("@angular/router");
+const addtask_component_1 = require("./task/addtask.component");
+const event_component_1 = require("../app/controller/event.component");
+const event_service_1 = require("../app/service/event.service");
+const addevent_component_1 = require("../app/controller/addevent.component");
+const addevent_service_1 = require("../app/service/addevent.service");
+const weather_component_1 = require("../app/controller/weather.component");
+const login_component_1 = require("../app/controller/login.component");
+const register_component_1 = require("../app/controller/register.component");
+const dashboard_component_1 = require("../app/controller/dashboard.component");
 //index routing , redirect to login for the blank request
 const indexRoutes = {
     path: '', component: login_component_1.LoginComponent
@@ -69,8 +66,7 @@ AppModule = __decorate([
         bootstrap: [
             app_component_1.AppComponent
         ]
-    }), 
-    __metadata('design:paramtypes', [])
+    })
 ], AppModule);
 exports.AppModule = AppModule;
 //# sourceMappingURL=app.module.js.map
