@@ -8,20 +8,12 @@ var flash    = require('connect-flash');
 
 var app = express();
 
-
-
-
-
-
- 
-
 var index = require('./routes/index');
 //var task = require('./routes/task');
 var event = require('./routes/event');
 var weather = require('./routes/weather-server');
 var validate = require('./routes/validate');
 
-//var port = 3000;
 app.set('views',path.join(__dirname,'views'));
 app.set('view engine','ejs');
 app.engine('html',require('ejs').renderFile);

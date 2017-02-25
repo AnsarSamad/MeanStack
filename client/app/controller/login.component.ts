@@ -22,7 +22,7 @@ export class LoginComponent{
 
     validate(ngform:NgForm){
         console.log('values :'+ngform.value)
-        this.http.post('http://localhost:3000/api/validate/login', {email:ngform.value.inputEmail,password:ngform.value.inputPassword})
+        this.http.post('/api/validate/login', {email:ngform.value.inputEmail,password:ngform.value.inputPassword})
         .map(result => result.json())
         .subscribe((result) => {
             this.isloggedIn = result.isvalid;
