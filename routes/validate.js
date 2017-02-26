@@ -12,7 +12,9 @@ router.post('/login',function(req,res,next){
     console.log('post request for login validation:'+req.body.email)
     try{
         passport.authenticate('local',function(err,isExist) {
-            console.log('response from strategy isExist :'+isExist)            
+            console.log('response from strategy isExist :'+isExist)    
+            res.status(200);
+            res.contentType('json');
             res.send({isvalid:isExist});
         })(req, res, next);
     }catch(e){

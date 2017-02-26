@@ -6,7 +6,7 @@ export class EventService{
         
     }
     getEvents(){
-        return this.http.get('http://localhost:3000/api/events/')
+        return this.http.get('/api/events/')
         .map(result=>result.json());
     }
 }

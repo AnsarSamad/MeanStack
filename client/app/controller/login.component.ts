@@ -16,9 +16,7 @@ export class LoginComponent{
 
     }
 
-    showRegister(){
-        console.log('show register action triggered')
-    }
+
 
     validate(ngform:NgForm){
         console.log('values :'+ngform.value)

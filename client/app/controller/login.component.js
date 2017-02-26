@@ -17,9 +17,6 @@ let LoginComponent = class LoginComponent {
         this.router = router;
         this.isloggedIn = true;
     }
-    showRegister() {
-        console.log('show register action triggered');
-    }
     validate(ngform) {
         console.log('values :' + ngform.value);
         this.http.post('/api/validate/login', { email: ngform.value.inputEmail, password: ngform.value.inputPassword })

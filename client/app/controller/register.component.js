@@ -18,7 +18,7 @@ let RegisterComponent = class RegisterComponent {
         this.isSuccess = true;
     }
     register() {
-        this.http.post('http://localhost:3000/api/validate/register/', { email: this.email, password: this.password })
+        this.http.post('api/validate/register/', { email: this.email, password: this.password })
             .subscribe((response) => {
             this.isSuccess = response.json().success;
             console.log('success:' + this.isSuccess);

@@ -17,7 +17,7 @@ DashBoardcomponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'dashboard',
-        templateUrl: '../html/dashboard.component.html'
+        templateUrl: '../html/dashboard.component.html',
     }),
     __metadata("design:paramtypes", [])
 ], DashBoardcomponent);
