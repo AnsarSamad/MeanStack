@@ -5,8 +5,15 @@ var config = require('./db/db');
 var session = require('express-session');
 var passport = require('passport');
 var flash    = require('connect-flash');
-
+var mongoose  =  require('mongoose');
 var app = express();
+
+var PropertiesReader = require('properties-reader');
+var properties = PropertiesReader(path.join(__dirname,'db/config.properties'));
+var url = properties.get('db.url');
+console.log('connecting to mongo db :'+url)
+mongoose.connect(url);
+
 
 var index = require('./routes/index');
 //var task = require('./routes/task');

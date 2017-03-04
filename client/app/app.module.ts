@@ -29,11 +29,26 @@ const fallbackRoutes = {
 // order is important, routes get called on the order which they defined
 const routes: Routes = [
   indexRoutes,
-  { path: 'addevent', component: AddNewEventComponent },
+
   { path: 'weather', component: WeatherComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'dash', component: DashBoardcomponent },
-  fallbackRoutes
+  { path: 'dash', component: DashBoardcomponent,
+    children: [
+      {   // shows events as default
+          path: '',
+          redirectTo: 'events',
+          pathMatch: 'full'
+      },
+      {   
+          path: 'events', 
+          component: EventComponent
+      },
+      {  
+          path: 'addevent',
+          component: AddNewEventComponent
+      },
+  ]
+ }
 ];
 
 export const routing = RouterModule.forRoot(routes);

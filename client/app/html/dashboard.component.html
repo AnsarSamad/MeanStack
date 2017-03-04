@@ -57,16 +57,19 @@
           </ul>
          
         </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        
-          <h2 class="sub-header">Section title</h2>
-                    
-            <event></event>
-            <newEvent></newEvent>
-        </div>
+         
+
+         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+         
+          <div>
+            <button routerLink="events" class="btn btn-primary">All Event</button>
+            <button routerLink="addevent" class="btn btn-primary">Add Event</button>
+          </div>
+          
+          <router-outlet></router-outlet>
+       
       </div>
     </div>
-
-
+    </div>
   </body>
 </html>

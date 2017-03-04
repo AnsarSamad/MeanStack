@@ -1,12 +1,6 @@
 var mongoose  =  require('mongoose');
-var PropertiesReader = require('properties-reader');
-var properties = PropertiesReader(__dirname+'/config.properties');
-var url = properties.get('db.url');
-console.log('db url :'+url)
-mongoose.connect(url);
-var Schema = mongoose.Schema;
-console.log('adding new schema');
 
+var Schema = mongoose.Schema;
 var eventSchema = new Schema({
     title:String,
     descr:String,

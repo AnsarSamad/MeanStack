@@ -10,8 +10,7 @@ var taskSchema = new Schema({
     content:{ type: String, required: true, default: 'test' },
     price:{ type: String, required: true, default: 'test' }
 });
-var DB_PATH = 'mongodb://localhost:27017/MyTask';
-mongoose.connect(DB_PATH);
+
 
 var Task = mongoose.model('task',taskSchema);
 

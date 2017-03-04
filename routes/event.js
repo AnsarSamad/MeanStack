@@ -2,33 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose  =  require('mongoose');
 var Event = require('../db/db');
-// var path = require('path');
-// var PropertiesReader = require('properties-reader');
-// var properties = PropertiesReader(path.join(__dirname,'../db/config.properties'));
-// var url = properties.get('db.url');
-// mongoose.connect(url);
 
-// console.log('inserting sample event :');
-// var tpl = new Event();
-// tpl.title = 'TPL';
-// tpl.desc = 'Technopark League';
-// tpl.created = new Date();
-// tpl.modified = Date.now();
-// tpl.place = 'Technopark';
-// tpl.fees = 100;
-// tpl.task.title = 'Cricket Match'
-// tpl.task.isDone = false;
-// tpl.task.content='Cricket match final';
-// tpl.task.price='TPL Cup'
-
-// tpl.save(function(err,event){
-//     if(err){
-//         console.log('Error Occured in creating Event:'+err.toString());
-//     }else{
-//         console.log('Created new Event :'+tpl.title);
-//     }
-
-// })  
 console.log('am in event router');
 router.get('/',(req,res,next)=>{  
     console.log('get request for get all events') 
