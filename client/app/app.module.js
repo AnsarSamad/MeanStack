@@ -22,6 +22,7 @@ const weather_component_1 = require("../app/controller/weather.component");
 const login_component_1 = require("../app/controller/login.component");
 const register_component_1 = require("../app/controller/register.component");
 const dashboard_component_1 = require("../app/controller/dashboard.component");
+const addtask_service_1 = require("../app/task/addtask.service");
 //index routing , redirect to login for the blank request
 const indexRoutes = {
     path: '', component: login_component_1.LoginComponent
@@ -33,7 +34,6 @@ const fallbackRoutes = {
 // order is important, routes get called on the order which they defined
 const routes = [
     indexRoutes,
-    { path: 'weather', component: weather_component_1.WeatherComponent },
     { path: 'register', component: register_component_1.RegisterComponent },
     { path: 'dash', component: dashboard_component_1.DashBoardcomponent,
         children: [
@@ -44,12 +44,28 @@ const routes = [
             },
             {
                 path: 'events',
-                component: event_component_1.EventComponent
+                component: event_component_1.EventComponent,
+                children: [
+                    {
+                        path: 'addevent',
+                        component: addevent_component_1.AddNewEventComponent
+                    }
+                ]
             },
             {
-                path: 'addevent',
-                component: addevent_component_1.AddNewEventComponent
+                path: 'task',
+                component: task_component_1.TaskComponent,
+                children: [
+                    {
+                        path: 'addtask',
+                        component: addtask_component_1.AddNewTaskComponent
+                    }
+                ]
             },
+            {
+                path: 'weather',
+                component: weather_component_1.WeatherComponent
+            }
         ]
     }
 ];
@@ -65,7 +81,7 @@ AppModule = __decorate([
             http_1.HttpModule,
             exports.routing
         ],
-        providers: [task_service_1.TaskService, event_service_1.EventService, addevent_service_1.AddEventService],
+        providers: [task_service_1.TaskService, event_service_1.EventService, addevent_service_1.AddEventService, addtask_service_1.AddTaskService],
         declarations: [
             app_component_1.AppComponent,
             login_component_1.LoginComponent,

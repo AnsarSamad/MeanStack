@@ -11,7 +11,7 @@ export class TaskService{
     }
     getTask(){
         console.log('am in gettask service')
-        return this.http.get('http://localhost:3000/api/task')
+        return this.http.get('/api/task')
         .map(result=>result.json());
     }
 }

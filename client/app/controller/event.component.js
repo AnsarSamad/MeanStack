@@ -13,6 +13,7 @@ const event_service_1 = require("../service/event.service");
 require("rxjs/Rx");
 let EventComponent = class EventComponent {
     constructor(eventService) {
+        this.mode = "start";
         eventService.getEvents()
             .subscribe(result => {
             console.log('events from mongo :' + result);
@@ -27,7 +28,13 @@ EventComponent = __decorate([
         template: `
     
     <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <div class="container">
+     <div>
+        <button routerLink="../events" class="btn btn-primary">All Event</button>
+        <button routerLink="addevent" class="btn btn-primary">Add Event</button>
+    </div>
+    <!-- loads child component list eventss and add new events -->
+    <router-outlet></router-outlet>
+    <div class="container" [class.hidden]="">
     <table class="table table-hover">
         <thead>
             <tr>

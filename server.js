@@ -16,7 +16,7 @@ mongoose.connect(url);
 
 
 var index = require('./routes/index');
-//var task = require('./routes/task');
+var task = require('./routes/task');
 var event = require('./routes/event');
 var weather = require('./routes/weather-server');
 var validate = require('./routes/validate');
@@ -45,7 +45,7 @@ app.use(flash());
 
 
 app.use('/',index);
-//app.use('/api/task',task);
+app.use('/api/task',task);
 app.use('/api/events',event);
 app.use('/api/weather',weather);
 app.use('/api/validate',validate);

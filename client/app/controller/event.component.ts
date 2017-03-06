@@ -2,8 +2,8 @@ import {Component} from '@angular/core'
 import{Task} from '../model/Task'
 import{Event} from '../model/Event'
 import{EventService} from '../service/event.service'
-import {Observable} from 'rxjs/Rx';
-import 'rxjs/Rx';
+import {Observable} from 'rxjs/Rx'
+import 'rxjs/Rx'
 
 @Component({
     moduleId:module.id,
@@ -11,7 +11,13 @@ import 'rxjs/Rx';
     template:`
     
     <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <div class="container">
+     <div>
+        <button routerLink="../events" class="btn btn-primary">All Event</button>
+        <button routerLink="addevent" class="btn btn-primary">Add Event</button>
+    </div>
+    <!-- loads child component list eventss and add new events -->
+    <router-outlet></router-outlet>
+    <div class="container" [class.hidden]="">
     <table class="table table-hover">
         <thead>
             <tr>
@@ -42,6 +48,7 @@ import 'rxjs/Rx';
 })
 export class EventComponent{
 events:Event[]
+mode:String = "start";
 constructor(eventService:EventService){
     eventService.getEvents()
     .subscribe(result => {

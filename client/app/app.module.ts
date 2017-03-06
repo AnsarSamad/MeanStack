@@ -13,8 +13,9 @@ import {AddNewEventComponent} from '../app/controller/addevent.component'
 import {AddEventService} from '../app/service/addevent.service'
 import {WeatherComponent} from '../app/controller/weather.component'
 import {LoginComponent} from '../app/controller/login.component'
-import{RegisterComponent} from '../app/controller/register.component'
+import {RegisterComponent} from '../app/controller/register.component'
 import {DashBoardcomponent} from '../app/controller/dashboard.component'
+import {AddTaskService} from '../app/task/addtask.service'
 //index routing , redirect to login for the blank request
 const indexRoutes:Route = {
   path:'',component:LoginComponent
@@ -30,7 +31,6 @@ const fallbackRoutes = {
 const routes: Routes = [
   indexRoutes,
 
-  { path: 'weather', component: WeatherComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'dash', component: DashBoardcomponent,
     children: [
@@ -41,12 +41,29 @@ const routes: Routes = [
       },
       {   
           path: 'events', 
-          component: EventComponent
+          component: EventComponent,
+            children:[
+              {  
+                  path: 'addevent',
+                  component: AddNewEventComponent
+              }
+            ]
       },
+      
       {  
-          path: 'addevent',
-          component: AddNewEventComponent
+          path: 'task',
+          component: TaskComponent,
+          children:[
+              {  
+                  path: 'addtask',
+                  component: AddNewTaskComponent
+              }
+            ]
       },
+      { 
+         path: 'weather',
+         component: WeatherComponent
+      }
   ]
  }
 ];
@@ -63,7 +80,7 @@ export const routing = RouterModule.forRoot(routes);
     HttpModule,
     routing
     ],
-    providers: [TaskService,EventService,AddEventService],
+    providers: [TaskService,EventService,AddEventService,AddTaskService],
   declarations: [
      AppComponent,
      LoginComponent,

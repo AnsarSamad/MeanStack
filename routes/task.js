@@ -12,10 +12,16 @@ var taskSchema = new Schema({
 });
 
 
-var Task = mongoose.model('task',taskSchema);
+var Task = mongoose.model('Task',taskSchema);
+var coding = new Task({title:'coding effor'},{'isdone':false},{content:'tets servelt effort uissng code'},{price:102});
 
+/* Output - 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting */
+console.log('connection status :'+mongoose.connection.readyState);
+console.log('adding new task from code');
 
-router.get('/task',(req,res,next)=>{  
+coding.save();
+
+router.get('/',(req,res,next)=>{  
     console.log('get request for get all task') 
     Task.find({}).exec((err,response)=>{
         console.log('am in get task api')
@@ -28,7 +34,7 @@ router.get('/task',(req,res,next)=>{
 })
 
 
-router.get('/task/:id',(req,res,next)=>{  
+router.get('/:id',(req,res,next)=>{  
     var id = req.params.id;
     console.log('get request for getting task:'+id) 
     Task.findById(id).exec((err,response)=>{
@@ -41,7 +47,7 @@ router.get('/task/:id',(req,res,next)=>{
     })
 })
 
-router.post('/task',function(req,res){
+router.post('/',function(req,res){
     var tsk = new Task();
     tsk.title=req.body.title;
     tsk.isDone=req.body.isDone;
