@@ -1,7 +1,14 @@
 
 <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-<input type="text" [(ngModel)]="address" id="address" name="address">
-<input type="button" value="Search" (click)="getWeatherData()">
+
+  <form class="navbar-form" role="search">
+    <div class="input-group add-on">
+      <input class="form-control" placeholder="Search" name="srch-term" id="srch-term" type="text"  [(ngModel)]="address" id="address" name="address">
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="submit" (click)="getWeatherData()"><i class="glyphicon glyphicon-search"></i></button>
+      </div>
+    </div>
+  </form>
 
 
 <!DOCTYPE html>

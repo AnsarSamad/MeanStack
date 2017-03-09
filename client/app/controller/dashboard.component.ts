@@ -2,7 +2,7 @@ import{Component} from '@angular/core'
 @Component({
     moduleId:module.id,
     selector:'dashboard',
-    template:`
+    /*template:`
     
     <body>
       <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -47,11 +47,12 @@ import{Component} from '@angular/core'
          </div>
       </div>
     </body>
-    `
+    `*/
+    templateUrl:'../dash/tables.html'
     
 })
 export class DashBoardcomponent{
-
+user:string="ansar";
     constructor(){
         
     }

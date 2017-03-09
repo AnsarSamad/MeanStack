@@ -13,18 +13,14 @@ var taskSchema = new Schema({
 
 
 var Task = mongoose.model('Task',taskSchema);
-var coding = new Task({title:'coding effor'},{'isdone':false},{content:'tets servelt effort uissng code'},{price:102});
 
 /* Output - 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting */
 console.log('connection status :'+mongoose.connection.readyState);
-console.log('adding new task from code');
-
-coding.save();
 
 router.get('/',(req,res,next)=>{  
     console.log('get request for get all task') 
     Task.find({}).exec((err,response)=>{
-        console.log('am in get task api')
+        console.log('am in get task api:'+response)
         if(err){
             console.log('Error occured');
         }else{
