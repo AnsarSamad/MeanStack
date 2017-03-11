@@ -56,7 +56,7 @@ LoginComponent = __decorate([
                 </label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <button type="button" class="btn btn-link" routerLink="['/register',{user:123}]" >Create new Account</button>
+            <button type="button" class="btn btn-link" routerLink="/register" >Create new Account</button>
             </form>
         </div>
 

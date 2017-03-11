@@ -9,11 +9,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require("@angular/core");
-const router_1 = require("@angular/router");
 let DashBoardcomponent = class DashBoardcomponent {
-    constructor(route) {
+    constructor() {
         this.user = "ansar";
-        this.user = route.snapshot.params['user'];
     }
 };
 DashBoardcomponent = __decorate([
@@ -68,7 +66,7 @@ DashBoardcomponent = __decorate([
         `*/
         templateUrl: '../html/dashboard.html'
     }),
-    __metadata("design:paramtypes", [router_1.ActivatedRoute])
+    __metadata("design:paramtypes", [])
 ], DashBoardcomponent);
 exports.DashBoardcomponent = DashBoardcomponent;
 //# sourceMappingURL=dashboard.component.js.map

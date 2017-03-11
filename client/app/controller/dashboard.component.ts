@@ -54,7 +54,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class DashBoardcomponent{
 user:string="ansar";
-    constructor(route:ActivatedRoute){
-        this.user = route.snapshot.params['user'];
+    constructor(){
+        
     }
 }
