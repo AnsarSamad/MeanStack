@@ -1,7 +1,6 @@
 var express = require('express');
 var bodyparser = require('body-parser');
 var path = require('path');
-var config = require('./db/db');
 var session = require('express-session');
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -11,13 +10,18 @@ var app = express();
 var PropertiesReader = require('properties-reader');
 var properties = PropertiesReader(path.join(__dirname,'db/config.properties'));
 var url = properties.get('db.url');
-console.log('connecting to mongo db :'+url)
-mongoose.connect(url);
 
+mongoose.connect(url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback () {
+  console.log("connect succesfull");
+});
 
 var index = require('./routes/index');
 var task = require('./routes/task');
 var event = require('./routes/event');
+
 var weather = require('./routes/weather-server');
 var validate = require('./routes/validate');
 
@@ -51,7 +55,7 @@ app.use('/api/weather',weather);
 app.use('/api/validate',validate);
 
 function redirectInvalidRouters(req,res){
-    res.sendFile('index.html',{root:'./views'})
+    res.sendFile('index.html',{root:'./client'})
 }
 app.use(redirectInvalidRouters);
 

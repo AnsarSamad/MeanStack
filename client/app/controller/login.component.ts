@@ -29,7 +29,7 @@ import {Router} from '@angular/router'
                 </label>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <button type="button" class="btn btn-link" routerLink="/register" >Create new Account</button>
+            <button type="button" class="btn btn-link" routerLink="['/register',{user:123}]" >Create new Account</button>
             </form>
         </div>
 
@@ -47,6 +47,7 @@ export class LoginComponent{
 
     validate(ngform:NgForm){
         console.log('values :'+ngform.value)
+        var user = ngform.value.inputEmail ;
         this.http.post('/api/validate/login', {email:ngform.value.inputEmail,password:ngform.value.inputPassword})
         .map(result => result.json())
         .subscribe((result) => {

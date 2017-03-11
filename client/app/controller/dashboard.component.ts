@@ -1,4 +1,5 @@
 import{Component} from '@angular/core'
+import {ActivatedRoute} from '@angular/router';
 @Component({
     moduleId:module.id,
     selector:'dashboard',
@@ -48,12 +49,12 @@ import{Component} from '@angular/core'
       </div>
     </body>
     `*/
-    templateUrl:'../dash/tables.html'
+    templateUrl:'../html/dashboard.html'
     
 })
 export class DashBoardcomponent{
 user:string="ansar";
-    constructor(){
-        
+    constructor(route:ActivatedRoute){
+        this.user = route.snapshot.params['user'];
     }
 }

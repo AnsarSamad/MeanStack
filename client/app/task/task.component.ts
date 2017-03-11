@@ -17,30 +17,33 @@ import 'rxjs/Rx';
             <!-- loads child component list task and add new task -->
             <router-outlet></router-outlet>
         <div class="container">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Activity</th>
-                    <th>Status</th>
-                    <th>AssignTo</th>
-                    <th>Spritn</th>
-                    <th>Hours</th>
-                    <th class="text-center">Action</th>
-                </tr>
-            </thead>
-            <tr *ngFor="let task of tasks">
-                <td>{{task.title}}</td>
-                <td>{{task.activity}}</td>
-                <td>{{task.status}}</td>
-                <td>{{task.assignto}}</td>
-                <td>{{task.sprint}}</td>
-                <td>{{task.hours}}</td>
-                <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
-            </tr>
-        </table>
+            <div class="row">
+                <div class="table-hover table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Activity</th>
+                                <th>Status</th>
+                                <th>AssignTo</th>
+                                <th>Spritn</th>
+                                <th>Hours</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tr *ngFor="let task of tasks">
+                            <td>{{task.title}}</td>
+                            <td>{{task.activity}}</td>
+                            <td>{{task.status}}</td>
+                            <td>{{task.assignto}}</td>
+                            <td>{{task.sprint}}</td>
+                            <td>{{task.hours}}</td>
+                            <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                        </tr>
+                    </table>
+            </div>
         </div>
-    
+    </div>
     `   
 })
 
