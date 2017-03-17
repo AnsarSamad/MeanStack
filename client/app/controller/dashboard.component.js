@@ -64,7 +64,7 @@ DashBoardcomponent = __decorate([
           </div>
         </body>
         `*/
-        templateUrl: '../html/dashboard.html'
+        templateUrl: '../html/dashboard-new.html'
     }),
     __metadata("design:paramtypes", [])
 ], DashBoardcomponent);

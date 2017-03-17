@@ -49,7 +49,7 @@ import {ActivatedRoute} from '@angular/router';
       </div>
     </body>
     `*/
-    templateUrl:'../html/dashboard.html'
+    templateUrl:'../html/dashboard-new.html'
     
 })
 export class DashBoardcomponent{
