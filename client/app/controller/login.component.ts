@@ -2,8 +2,8 @@ import {Component} from '@angular/core'
 import {NgForm} from '@angular/forms'
 import {Http} from '@angular/http'
 import {Router} from '@angular/router'
-
-
+import {ComponentAction} from '../base/Component.action'
+import {Member} from '../base/member'
 @Component({
     moduleId:module.id,
     selector:'login',
@@ -37,10 +37,11 @@ import {Router} from '@angular/router'
     `
 })
 
-export class LoginComponent{
+export class LoginComponent extends ComponentAction{
     isloggedIn:boolean = true;
+    
     constructor(private http :Http , private router:Router){
-
+        super();
     }
 
 
@@ -52,6 +53,8 @@ export class LoginComponent{
         .map(result => result.json())
         .subscribe((result) => {
             this.isloggedIn = result.isvalid;
+            let member = new Member(user,result.isadmine);
+            super.setMember(member);
             if(this.isloggedIn){
                 this.router.navigate(['./dash'])
             }

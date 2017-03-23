@@ -1,24 +1,25 @@
 "use strict";
-class Event {
-    constructor(title, desc) {
+var Event = (function () {
+    function Event(title, desc) {
         this.title = title;
         this.descr = desc;
     }
-    setCreated(crDate) {
+    Event.prototype.setCreated = function (crDate) {
         this.created = crDate;
-    }
-    setModified(modDate) {
+    };
+    Event.prototype.setModified = function (modDate) {
         this.modified = modDate;
-    }
-    setPlace(pl) {
+    };
+    Event.prototype.setPlace = function (pl) {
         this.place = pl;
-    }
-    setFees(fs) {
+    };
+    Event.prototype.setFees = function (fs) {
         this.fees = fs;
-    }
-    settask(tsk) {
+    };
+    Event.prototype.settask = function (tsk) {
         this.task = tsk;
-    }
-}
+    };
+    return Event;
+}());
 exports.Event = Event;
 //# sourceMappingURL=Event.js.map

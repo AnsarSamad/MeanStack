@@ -1,21 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose  =  require('mongoose');
-
-var Schema = mongoose.Schema;
-console.log('adding new schema');
-var taskSchema = new Schema({
-    title:String,
-    isDone:Boolean,
-    content:{ type: String, required: true, default: 'test' },
-    price:{ type: String, required: true, default: 'test' }
-});
-
-
-var Task = mongoose.model('Task',taskSchema);
-
-/* Output - 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting */
-console.log('connection status :'+mongoose.connection.readyState);
+var Task = require('../model/task');
 
 router.get('/',(req,res,next)=>{  
     console.log('get request for get all task') 

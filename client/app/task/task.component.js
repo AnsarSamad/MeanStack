@@ -8,61 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-const task_service_1 = require("./task.service");
+var core_1 = require("@angular/core");
+var task_service_1 = require("./task.service");
 require("rxjs/Rx");
-let TaskComponent = class TaskComponent {
-    constructor(taskService) {
+var TaskComponent = (function () {
+    function TaskComponent(taskService) {
+        var _this = this;
         this.taskService = taskService;
-        this.taskService.getTask().subscribe(tasks => {
-            this.tasks = tasks;
+        this.taskService.getTask().subscribe(function (tasks) {
+            _this.tasks = tasks;
         });
     }
-    addTask() {
-    }
-};
+    TaskComponent.prototype.addTask = function () {
+    };
+    return TaskComponent;
+}());
 TaskComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'task',
-        template: `
-    
-        <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-        <div>
-            <button routerLink="../task" class="btn btn-primary">All Task</button>
-            <button routerLink="addtask" class="btn btn-primary">Add Task</button>
-        </div>
-            <!-- loads child component list task and add new task -->
-            <router-outlet></router-outlet>
-        <div class="container">
-            <div class="row">
-                <div class="table-hover table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Activity</th>
-                                <th>Status</th>
-                                <th>AssignTo</th>
-                                <th>Spritn</th>
-                                <th>Hours</th>
-                                <th class="text-center">Action</th>
-                            </tr>
-                        </thead>
-                        <tr *ngFor="let task of tasks">
-                            <td>{{task.title}}</td>
-                            <td>{{task.activity}}</td>
-                            <td>{{task.status}}</td>
-                            <td>{{task.assignto}}</td>
-                            <td>{{task.sprint}}</td>
-                            <td>{{task.hours}}</td>
-                            <td class="text-center"><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
-                        </tr>
-                    </table>
-            </div>
-        </div>
-    </div>
-    `
+        template: "\n    \n        <link rel=\"stylesheet\" href=\"../../bower_components/bootstrap/dist/css/bootstrap.min.css\">\n        <div>\n            <button routerLink=\"../task\" class=\"btn btn-primary\">All Task</button>\n            <button routerLink=\"addtask\" class=\"btn btn-primary\">Add Task</button>\n        </div>\n            <!-- loads child component list task and add new task -->\n            <router-outlet></router-outlet>\n        <div class=\"container\">\n            <div class=\"row\">\n                <div class=\"table-hover table-responsive\">\n                    <table class=\"table\">\n                        <thead>\n                            <tr>\n                                <th>Title</th>\n                                <th>Activity</th>\n                                <th>Status</th>\n                                <th>AssignTo</th>\n                                <th>Spritn</th>\n                                <th>Hours</th>\n                                <th class=\"text-center\">Action</th>\n                            </tr>\n                        </thead>\n                        <tr *ngFor=\"let task of tasks\">\n                            <td>{{task.title}}</td>\n                            <td>{{task.activity}}</td>\n                            <td>{{task.status}}</td>\n                            <td>{{task.assignto}}</td>\n                            <td>{{task.sprint}}</td>\n                            <td>{{task.hours}}</td>\n                            <td class=\"text-center\"><a class='btn btn-info btn-xs' href=\"#\"><span class=\"glyphicon glyphicon-edit\"></span> Edit</a> <a href=\"#\" class=\"btn btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span> Del</a></td>\n                        </tr>\n                    </table>\n            </div>\n        </div>\n    </div>\n    "
     }),
     __metadata("design:paramtypes", [task_service_1.TaskService])
 ], TaskComponent);

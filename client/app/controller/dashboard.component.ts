@@ -1,5 +1,6 @@
 import{Component} from '@angular/core'
-import {ActivatedRoute} from '@angular/router';
+import {ComponentAction} from '../base/Component.action'
+
 @Component({
     moduleId:module.id,
     selector:'dashboard',
@@ -52,9 +53,12 @@ import {ActivatedRoute} from '@angular/router';
     templateUrl:'../html/dashboard-new.html'
     
 })
-export class DashBoardcomponent{
-user:string="ansar";
+export class DashBoardcomponent extends ComponentAction {
+    user:String;
+    private sub: any;
     constructor(){
-        
+        super();
+        this.user = super.getMember().membername;
     }
+
 }

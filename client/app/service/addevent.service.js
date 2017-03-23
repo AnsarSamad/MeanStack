@@ -8,15 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-const http_1 = require("@angular/http");
-let AddEventService = class AddEventService {
-    constructor(http) {
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var AddEventService = (function () {
+    function AddEventService(http) {
         this.http = http;
     }
-    saveEvent() {
+    AddEventService.prototype.saveEvent = function () {
         console.log('am in save event service calll');
-        const eventData = {
+        var eventData = {
             title: 'test',
             descr: 'test',
             place: 'test',
@@ -25,9 +25,10 @@ let AddEventService = class AddEventService {
             tsk_content: 'test',
             tsk_price: 'test'
         };
-        return this.http.post('http://localhost:3000/api/events/', eventData).map(response => response.json());
-    }
-};
+        return this.http.post('http://localhost:3000/api/events/', eventData).map(function (response) { return response.json(); });
+    };
+    return AddEventService;
+}());
 AddEventService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])

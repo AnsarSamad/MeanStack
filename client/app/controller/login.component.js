@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,60 +18,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-const http_1 = require("@angular/http");
-const router_1 = require("@angular/router");
-let LoginComponent = class LoginComponent {
-    constructor(http, router) {
-        this.http = http;
-        this.router = router;
-        this.isloggedIn = true;
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
+var Component_action_1 = require("../base/Component.action");
+var member_1 = require("../base/member");
+var LoginComponent = (function (_super) {
+    __extends(LoginComponent, _super);
+    function LoginComponent(http, router) {
+        var _this = _super.call(this) || this;
+        _this.http = http;
+        _this.router = router;
+        _this.isloggedIn = true;
+        return _this;
     }
-    validate(ngform) {
+    LoginComponent.prototype.validate = function (ngform) {
+        var _this = this;
         console.log('values :' + ngform.value);
         var user = ngform.value.inputEmail;
         this.http.post('/api/validate/login', { email: ngform.value.inputEmail, password: ngform.value.inputPassword })
-            .map(result => result.json())
-            .subscribe((result) => {
-            this.isloggedIn = result.isvalid;
-            if (this.isloggedIn) {
-                this.router.navigate(['./dash']);
+            .map(function (result) { return result.json(); })
+            .subscribe(function (result) {
+            _this.isloggedIn = result.isvalid;
+            var member = new member_1.Member(user, result.isadmine);
+            _super.prototype.setMember.call(_this, member);
+            if (_this.isloggedIn) {
+                _this.router.navigate(['./dash']);
             }
         });
-    }
-};
+    };
+    return LoginComponent;
+}(Component_action_1.ComponentAction));
 LoginComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'login',
-        template: `
-    
-        <link href="../css/main.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-
-        <div class="alert alert-danger" [class.hidden]="isloggedIn" role="alert">
-        <span class="close" data-dismiss="alert">&times;</span>
-        <strong>Error!</strong>Not a valid user . Please try again.
-        </div>
-        <div class="container" *ngIf="!register">
-            <form #signinForm="ngForm" class="form-signin" (ngSubmit)="validate(signinForm)" onsubmit="return false">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" name="inputEmail" class="form-control" placeholder="Email address" required autofocus ngModel>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" name="inputPassword" class="form-control" placeholder="Password" required ngModel>
-            <div class="checkbox">
-                <label>
-                <input type="checkbox" value="remember-me"> Remember me
-                </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-            <button type="button" class="btn btn-link" routerLink="/register" >Create new Account</button>
-            </form>
-        </div>
-
-    
-    `
+        template: "\n    \n        <link href=\"../css/main.css\" rel=\"stylesheet\">\n        <link rel=\"stylesheet\" href=\"../../bower_components/bootstrap/dist/css/bootstrap.min.css\">\n\n        <div class=\"alert alert-danger\" [class.hidden]=\"isloggedIn\" role=\"alert\">\n        <span class=\"close\" data-dismiss=\"alert\">&times;</span>\n        <strong>Error!</strong>Not a valid user . Please try again.\n        </div>\n        <div class=\"container\" *ngIf=\"!register\">\n            <form #signinForm=\"ngForm\" class=\"form-signin\" (ngSubmit)=\"validate(signinForm)\" onsubmit=\"return false\">\n            <h2 class=\"form-signin-heading\">Please sign in</h2>\n            <label for=\"inputEmail\" class=\"sr-only\">Email address</label>\n            <input type=\"email\" id=\"inputEmail\" name=\"inputEmail\" class=\"form-control\" placeholder=\"Email address\" required autofocus ngModel>\n            <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n            <input type=\"password\" id=\"inputPassword\" name=\"inputPassword\" class=\"form-control\" placeholder=\"Password\" required ngModel>\n            <div class=\"checkbox\">\n                <label>\n                <input type=\"checkbox\" value=\"remember-me\"> Remember me\n                </label>\n            </div>\n            <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign in</button>\n            <button type=\"button\" class=\"btn btn-link\" routerLink=\"/register\" >Create new Account</button>\n            </form>\n        </div>\n\n    \n    "
     }),
     __metadata("design:paramtypes", [http_1.Http, router_1.Router])
 ], LoginComponent);

@@ -21,6 +21,9 @@ db.once('open', function callback () {
 var index = require('./routes/index');
 var task = require('./routes/task');
 var event = require('./routes/event');
+var userstory = require('./routes/user-story');
+var feature = require('./routes/feature');
+
 
 var weather = require('./routes/weather-server');
 var validate = require('./routes/validate');
@@ -53,6 +56,8 @@ app.use('/api/task',task);
 app.use('/api/events',event);
 app.use('/api/weather',weather);
 app.use('/api/validate',validate);
+app.use('/api/userstory',userstory);
+app.use('/api/feature',feature);
 
 function redirectInvalidRouters(req,res){
     res.sendFile('index.html',{root:'./client'})

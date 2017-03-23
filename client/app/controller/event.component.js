@@ -8,61 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-const event_service_1 = require("../service/event.service");
+var core_1 = require("@angular/core");
+var event_service_1 = require("../service/event.service");
 require("rxjs/Rx");
-let EventComponent = class EventComponent {
-    constructor(eventService) {
+var EventComponent = (function () {
+    function EventComponent(eventService) {
+        var _this = this;
         this.mode = "start";
         eventService.getEvents()
-            .subscribe(result => {
+            .subscribe(function (result) {
             console.log('events from mongo :' + result);
-            this.events = result;
+            _this.events = result;
         });
     }
-};
+    return EventComponent;
+}());
 EventComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'event',
-        template: `
-    
-    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-     <div>
-        <button routerLink="../events" class="btn btn-primary">All Event</button>
-        <button routerLink="addevent" class="btn btn-primary">Add Event</button>
-    </div>
-    <!-- loads child component list eventss and add new events -->
-    <router-outlet></router-outlet>
-    <div class="container" [class.hidden]="">
-        <div class="row">
-                <div class="table-hover table-responsive">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Title</th>
-                                <th>Place</th>
-                                <th>Tasks</th>
-                                <th>Fees</th>
-                                <th>Description</th>
-                                <th>Created</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tr *ngFor="let evnt of events">
-                            <td>{{evnt.title}}</td>
-                            <td>{{evnt.place}}</td>
-                            <td>{{evnt.task.title}}</td>
-                            <td>{{evnt.fees}}</td>
-                            <td>{{evnt.descr}}</td>
-                            <td>{{evnt.created}}</td>
-                            <td><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-    </div>
-    `
+        template: "\n    \n\n                        <thead>\n                            <tr>\n                                <th>Title</th>\n                                <th>Place</th>\n                                <th>Tasks</th>\n                                <th>Fees</th>\n                                <th>Description</th>\n                                <th>Created</th>\n                                <th>Action</th>\n                            </tr>\n                        </thead>\n                        <tbody>\n                            <tr *ngFor=\"let evnt of events\">\n                                <td>{{evnt.title}}</td>\n                                <td>{{evnt.place}}</td>\n                                <td>{{evnt.task.title}}</td>\n                                <td>{{evnt.fees}}</td>\n                                <td>{{evnt.descr}}</td>\n                                <td>{{evnt.created}}</td>\n                                <td><a class='btn btn-info btn-xs' href=\"#\"><span class=\"glyphicon glyphicon-edit\"></span> Edit</a> <a href=\"#\" class=\"btn btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span> Del</a></td>\n                            </tr>\n                    </tbody>\n    "
     }),
     __metadata("design:paramtypes", [event_service_1.EventService])
 ], EventComponent);

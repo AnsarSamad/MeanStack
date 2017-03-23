@@ -1,12 +1,13 @@
 "use strict";
-class Task {
-    constructor(title, done) {
+var Task = (function () {
+    function Task(title, done) {
         this.title = title;
         this.isDone = done;
     }
-    setContent(content) {
+    Task.prototype.setContent = function (content) {
         this.content = content;
-    }
-}
+    };
+    return Task;
+}());
 exports.Task = Task;
 //# sourceMappingURL=Task.js.map

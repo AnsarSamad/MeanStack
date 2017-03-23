@@ -17,10 +17,17 @@ passport.use('local',new LocalStrategy(
         console.log('email :'+username);
         console.log('password :'+password);
         User.findOne({local:{email:username,password:password}},function(err,response){
+            
+            console.log('passport fetched user details :'+response)
+            var isadmine=false;
             if(err || response == null){
-                return callback (null,false); // user not exist
+                return callback (null,false,isadmine); // user not exist
             } else{
-                return callback(null,true); //user exist
+                //identify weather this user is a admin user or not                
+                if(typeof response.isadmine != 'undefined' && response.isadmine == "true" ){
+                    isadmine=true;
+                }
+                return callback(null,true,isadmine); //user exist //isadmin
             }
         })
     }

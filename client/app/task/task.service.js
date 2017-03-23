@@ -8,19 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-const http_1 = require("@angular/http");
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
 require("rxjs/Rx");
-let TaskService = class TaskService {
-    constructor(http) {
+var TaskService = (function () {
+    function TaskService(http) {
         this.http = http;
     }
-    getTask() {
+    TaskService.prototype.getTask = function () {
         console.log('am in gettask service');
         return this.http.get('/api/task')
-            .map(result => result.json());
-    }
-};
+            .map(function (result) { return result.json(); });
+    };
+    return TaskService;
+}());
 TaskService = __decorate([
     core_1.Injectable(),
     __metadata("design:paramtypes", [http_1.Http])

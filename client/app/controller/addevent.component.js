@@ -8,15 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-const addevent_service_1 = require("../service/addevent.service");
-let AddNewEventComponent = class AddNewEventComponent {
+var core_1 = require("@angular/core");
+var addevent_service_1 = require("../service/addevent.service");
+var AddNewEventComponent = (function () {
     // constructor(private http:Http){
     // }
-    constructor(addeventService) {
+    function AddNewEventComponent(addeventService) {
         this.addeventService = addeventService;
     }
-    addEvent(form) {
+    AddNewEventComponent.prototype.addEvent = function (form) {
         // const eventData = 
         //                 {
         //                     title:form.value.title,
@@ -31,51 +31,15 @@ let AddNewEventComponent = class AddNewEventComponent {
         //     this.http.post('http://localhost:3000/api/events/',eventData)
         //     .map(result=>JSON.stringify(result));
         this.addeventService.saveEvent()
-            .subscribe(response => console.log(response));
-    }
-};
+            .subscribe(function (response) { return console.log(response); });
+    };
+    return AddNewEventComponent;
+}());
 AddNewEventComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
         selector: 'newEvent',
-        template: `
-    
-    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-    <form>
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-  </div>
-  <div class="form-group">
-    <label for="exampleSelect1">Example select</label>
-    <select class="form-control" id="exampleSelect1">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-  </div>
-  <div class="form-group">
-    <label for="exampleSelect2">Example multiple select</label>
-    <select multiple class="form-control" id="exampleSelect2">
-      <option>1</option>
-      <option>2</option>
-      <option>3</option>
-      <option>4</option>
-      <option>5</option>
-    </select>
-  </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
-    
-    `
+        template: "\n    \n    <link rel=\"stylesheet\" href=\"../../bower_components/bootstrap/dist/css/bootstrap.min.css\">\n    <form>\n  <div class=\"form-group\">\n    <label for=\"exampleInputEmail1\">Email address</label>\n    <input type=\"email\" class=\"form-control\" id=\"exampleInputEmail1\" aria-describedby=\"emailHelp\" placeholder=\"Enter email\">\n    <small id=\"emailHelp\" class=\"form-text text-muted\">We'll never share your email with anyone else.</small>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"exampleInputPassword1\">Password</label>\n    <input type=\"password\" class=\"form-control\" id=\"exampleInputPassword1\" placeholder=\"Password\">\n  </div>\n  <div class=\"form-group\">\n    <label for=\"exampleSelect1\">Example select</label>\n    <select class=\"form-control\" id=\"exampleSelect1\">\n      <option>1</option>\n      <option>2</option>\n      <option>3</option>\n      <option>4</option>\n      <option>5</option>\n    </select>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"exampleSelect2\">Example multiple select</label>\n    <select multiple class=\"form-control\" id=\"exampleSelect2\">\n      <option>1</option>\n      <option>2</option>\n      <option>3</option>\n      <option>4</option>\n      <option>5</option>\n    </select>\n  </div>\n\n  <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n</form>\n    \n    "
     }),
     __metadata("design:paramtypes", [addevent_service_1.AddEventService])
 ], AddNewEventComponent);

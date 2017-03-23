@@ -5,34 +5,34 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-const core_1 = require("@angular/core");
-const platform_browser_1 = require("@angular/platform-browser");
-const task_service_1 = require("../app/task/task.service");
-const task_component_1 = require("../app/task/task.component");
-const app_component_1 = require("./app.component");
-const forms_1 = require("@angular/forms");
-const http_1 = require("@angular/http");
-const router_1 = require("@angular/router");
-const addtask_component_1 = require("./task/addtask.component");
-const event_component_1 = require("../app/controller/event.component");
-const event_service_1 = require("../app/service/event.service");
-const addevent_component_1 = require("../app/controller/addevent.component");
-const addevent_service_1 = require("../app/service/addevent.service");
-const weather_component_1 = require("../app/controller/weather.component");
-const login_component_1 = require("../app/controller/login.component");
-const register_component_1 = require("../app/controller/register.component");
-const dashboard_component_1 = require("../app/controller/dashboard.component");
-const addtask_service_1 = require("../app/task/addtask.service");
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
+var task_service_1 = require("../app/task/task.service");
+var task_component_1 = require("../app/task/task.component");
+var app_component_1 = require("./app.component");
+var forms_1 = require("@angular/forms");
+var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
+var addtask_component_1 = require("./task/addtask.component");
+var event_component_1 = require("../app/controller/event.component");
+var event_service_1 = require("../app/service/event.service");
+var addevent_component_1 = require("../app/controller/addevent.component");
+var addevent_service_1 = require("../app/service/addevent.service");
+var weather_component_1 = require("../app/controller/weather.component");
+var login_component_1 = require("../app/controller/login.component");
+var register_component_1 = require("../app/controller/register.component");
+var dashboard_component_1 = require("../app/controller/dashboard.component");
+var addtask_service_1 = require("../app/task/addtask.service");
 //index routing , redirect to login for the blank request
-const indexRoutes = {
+var indexRoutes = {
     path: '', component: login_component_1.LoginComponent
 };
 // for all invalid routers , it will redirect to login component
-const fallbackRoutes = {
+var fallbackRoutes = {
     path: '**', component: login_component_1.LoginComponent
 };
 // order is important, routes get called on the order which they defined
-const routes = [
+var routes = [
     indexRoutes,
     { path: 'register', component: register_component_1.RegisterComponent },
     { path: 'dash', component: dashboard_component_1.DashBoardcomponent,
@@ -70,8 +70,11 @@ const routes = [
     }
 ];
 exports.routing = router_1.RouterModule.forRoot(routes);
-let AppModule = class AppModule {
-};
+var AppModule = (function () {
+    function AppModule() {
+    }
+    return AppModule;
+}());
 AppModule = __decorate([
     core_1.NgModule({
         imports: [

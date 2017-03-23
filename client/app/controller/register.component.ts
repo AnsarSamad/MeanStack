@@ -2,6 +2,8 @@ import{Component,Input,Output} from '@angular/core'
 import{Router} from '@angular/router'
 import{Http} from '@angular/http'
 import {Observable} from 'rxjs/Observable';
+import {ComponentAction} from '../base/Component.action'
+import {Member} from '../base/member'
 @Component({
     moduleId:module.id,
     selector:'signup',
@@ -33,19 +35,21 @@ import {Observable} from 'rxjs/Observable';
 
  
 
-export class RegisterComponent{
+export class RegisterComponent extends ComponentAction{
 
 email:string;
 password:string
 isSuccess :boolean  = true;
 constructor(private http:Http , private router:Router){
-
+    super();
 }
  register(){    
       this.http.post('api/validate/register/',{email:this.email,password:this.password})
      .subscribe(
          (response) => {
               this.isSuccess = response.json().success  
+              let member = new Member(this.email,"false");//isadmine:false
+              super.setMember(member);
               console.log('success:'+this.isSuccess);
               if(this.isSuccess){
                   this.router.navigate(['./dash']);

@@ -8,24 +8,26 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-const core_1 = require("@angular/core");
-const http_1 = require("@angular/http");
-let WeatherComponent = class WeatherComponent {
-    constructor(http) {
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var WeatherComponent = (function () {
+    function WeatherComponent(http) {
         this.http = http;
         this.isSuccess = false;
     }
-    getWeatherData() {
+    WeatherComponent.prototype.getWeatherData = function () {
+        var _this = this;
         console.log('getting weather data for location :' + this.address);
-        this.http.get(`/api/weather/${this.address}`)
-            .map((weather) => weather.json())
-            .subscribe((weatherObj) => {
-            this.weatherObj = weatherObj;
-            console.log('weatherObj :' + JSON.stringify(this.weatherObj));
-            this.isSuccess = true;
+        this.http.get("/api/weather/" + this.address)
+            .map(function (weather) { return weather.json(); })
+            .subscribe(function (weatherObj) {
+            _this.weatherObj = weatherObj;
+            console.log('weatherObj :' + JSON.stringify(_this.weatherObj));
+            _this.isSuccess = true;
         });
-    }
-};
+    };
+    return WeatherComponent;
+}());
 WeatherComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

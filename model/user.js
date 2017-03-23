@@ -25,7 +25,8 @@ var User = new Schema({
         token        : String,
         email        : String,
         name         : String
-    }
+    },
+    isadmine : String
 
 });
 

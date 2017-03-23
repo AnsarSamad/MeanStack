@@ -9,6 +9,7 @@ function isUserExist(username,password){
 
     return new Promise(function(resolve,reject){
         User.findOne({local:{email:username,password:password}},function(err,response){
+            console.log('response in DBUtil isUSerExxist :'+response);
             if(err || response == null){
                 reject(false); // user not exist
             } else{
@@ -20,8 +21,8 @@ function isUserExist(username,password){
 
 }
 
-function addLocalUser(username,password){
-     var localUser = new User({local:{ email:username,password:password} })       
+function addLocalUser(username,password,isadmin){
+     var localUser = new User({local:{ email:username,password:password},isadmin:isadmin })       
      return new Promise(function(resolve,reject){
         localUser.save(function(err){
             if(err){
