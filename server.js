@@ -34,7 +34,7 @@ app.engine('html',require('ejs').renderFile);
 
 
 
-app.use(express.static(path.join(__dirname,'client')));
+app.use(express.static(path.join(__dirname,'client/dist')));
 
 
 app.use(bodyparser.json());
@@ -60,7 +60,7 @@ app.use('/api/userstory',userstory);
 app.use('/api/feature',feature);
 
 function redirectInvalidRouters(req,res){
-    res.sendFile('index.html',{root:'./client'})
+    res.sendFile('index.html',{root:'./client/dist'})
 }
 app.use(redirectInvalidRouters);
 

@@ -4,13 +4,12 @@ import{Http} from '@angular/http'
 import {Observable} from 'rxjs/Observable';
 import {ComponentAction} from '../base/Component.action'
 import {Member} from '../base/member'
+
 @Component({
-    moduleId:module.id,
+    moduleId:module.id.toString(),
     selector:'signup',
     template: `
-
-        <link href="../css/main.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">    
+  
         <div class="alert alert-danger fade in" [class.hidden]="isSuccess">
             <a href="#" class="close" data-dismiss="alert">&times;</a>
             <strong>Error!</strong> This User Already Registered . please Sign in.

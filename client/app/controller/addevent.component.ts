@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import {Http} from '@angular/http'
 import {AddEventService} from '../service/addevent.service'
 @Component({
-    moduleId:module.id,
+    moduleId:module.id.toString(),
     selector:'newEvent',
     template:`
     

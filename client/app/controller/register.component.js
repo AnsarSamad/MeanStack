@@ -18,6 +18,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
@@ -49,9 +50,9 @@ var RegisterComponent = (function (_super) {
 }(Component_action_1.ComponentAction));
 RegisterComponent = __decorate([
     core_1.Component({
-        moduleId: module.id,
+        moduleId: module.id.toString(),
         selector: 'signup',
-        template: "\n\n        <link href=\"../css/main.css\" rel=\"stylesheet\">\n        <link rel=\"stylesheet\" href=\"../../bower_components/bootstrap/dist/css/bootstrap.min.css\">    \n        <div class=\"alert alert-danger fade in\" [class.hidden]=\"isSuccess\">\n            <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>\n            <strong>Error!</strong> This User Already Registered . please Sign in.\n        </div>\n        <div class=\"container\">\n            <form class=\"form-signin\" (ngSubmit)=\"register()\">\n                <h2 class=\"form-signin-heading\">Please sign Up</h2>\n                <label for=\"inputEmail\" class=\"sr-only\">Email address</label>\n                <input type=\"email\" id=\"inputEmail\" name=\"inputEmail\" class=\"form-control\" placeholder=\"Email address\" [(ngModel)]=\"email\" required autofocus>\n                <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n                <input type=\"password\" id=\"inputPassword\" name=\"inputPassword\" class=\"form-control\" placeholder=\"Password\" [(ngModel)]=\"password\" required>\n                <label for=\"confirmpassword\" class=\"sr-only\">Password</label>\n                <input type=\"password\" id=\"confirmpassword\" name=\"confirmpassword\" class=\"form-control\" placeholder=\"Confirm Password\" required>\n                <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign Up</button>\n                <button type=\"button\" class=\"btn btn-link\" routerLink=\"\" >Login</button>\n            </form>\n        </div>\n    \n    "
+        template: "\n  \n        <div class=\"alert alert-danger fade in\" [class.hidden]=\"isSuccess\">\n            <a href=\"#\" class=\"close\" data-dismiss=\"alert\">&times;</a>\n            <strong>Error!</strong> This User Already Registered . please Sign in.\n        </div>\n        <div class=\"container\">\n            <form class=\"form-signin\" (ngSubmit)=\"register()\">\n                <h2 class=\"form-signin-heading\">Please sign Up</h2>\n                <label for=\"inputEmail\" class=\"sr-only\">Email address</label>\n                <input type=\"email\" id=\"inputEmail\" name=\"inputEmail\" class=\"form-control\" placeholder=\"Email address\" [(ngModel)]=\"email\" required autofocus>\n                <label for=\"inputPassword\" class=\"sr-only\">Password</label>\n                <input type=\"password\" id=\"inputPassword\" name=\"inputPassword\" class=\"form-control\" placeholder=\"Password\" [(ngModel)]=\"password\" required>\n                <label for=\"confirmpassword\" class=\"sr-only\">Password</label>\n                <input type=\"password\" id=\"confirmpassword\" name=\"confirmpassword\" class=\"form-control\" placeholder=\"Confirm Password\" required>\n                <button class=\"btn btn-lg btn-primary btn-block\" type=\"submit\">Sign Up</button>\n                <button type=\"button\" class=\"btn btn-link\" routerLink=\"\" >Login</button>\n            </form>\n        </div>\n    \n    "
     }),
     __metadata("design:paramtypes", [http_1.Http, router_1.Router])
 ], RegisterComponent);

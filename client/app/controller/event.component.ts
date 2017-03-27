@@ -6,7 +6,7 @@ import {Observable} from 'rxjs/Rx'
 import 'rxjs/Rx'
 
 @Component({
-    moduleId:module.id,
+    moduleId:module.id.toString(),
     selector:'event',
     template:`
     

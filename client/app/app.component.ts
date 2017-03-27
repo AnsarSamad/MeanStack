@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 
 @Component({
+  moduleId:module.id.toString(),
   selector: 'my-app',
   template: `
       

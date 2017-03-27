@@ -1,4 +1,8 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("core-js");
+require("reflect-metadata");
+require("zone.js/dist/zone");
 var platform_browser_dynamic_1 = require("@angular/platform-browser-dynamic");
 var app_module_1 = require("./app.module");
 var core_1 = require("@angular/core");

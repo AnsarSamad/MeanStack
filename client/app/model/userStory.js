@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var UserStories = (function () {
     function UserStories(title, desc) {
         this.title = title;

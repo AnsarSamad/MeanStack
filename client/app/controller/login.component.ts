@@ -4,13 +4,13 @@ import {Http} from '@angular/http'
 import {Router} from '@angular/router'
 import {ComponentAction} from '../base/Component.action'
 import {Member} from '../base/member'
+
+
 @Component({
-    moduleId:module.id,
+    moduleId:module.id.toString(),
     selector:'login',
     template:`
     
-        <link href="../css/main.css" rel="stylesheet">
-        <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
 
         <div class="alert alert-danger" [class.hidden]="isloggedIn" role="alert">
         <span class="close" data-dismiss="alert">&times;</span>

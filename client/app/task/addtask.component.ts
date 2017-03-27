@@ -3,7 +3,7 @@ import {NgForm} from '@angular/forms'
 import {AddTaskService} from './addtask.service'
 import {Task} from '../model/Task'
 @Component({
-    moduleId:module.id,
+    moduleId:module.id.toString(),
     selector:'newtask',
     template:`
     
