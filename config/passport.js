@@ -18,16 +18,19 @@ passport.use('local',new LocalStrategy(
         console.log('password :'+password);
         User.findOne({local:{email:username,password:password}},function(err,response){
             
-            console.log('passport fetched user details :'+response)
+            console.log('passport fetched user details :'+response._id)
             var isadmine=false;
             if(err || response == null){
-                return callback (null,false,isadmine); // user not exist
+                var obj = {isvalid:false,isadmin:isadmine,userID:response._id}
+                return callback (null,obj); // user not exist
             } else{
                 //identify weather this user is a admin user or not                
                 if(typeof response.isadmine != 'undefined' && response.isadmine == "true" ){
                     isadmine=true;
                 }
-                return callback(null,true,isadmine); //user exist //isadmin
+                console.log('response._id:'+response._id);
+                var obj = {isvalid:true,isadmin:isadmine,userID:response._id}
+                return callback(null,obj); //user exist //isadmin
             }
         })
     }

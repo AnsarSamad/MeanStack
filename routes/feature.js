@@ -33,7 +33,8 @@ router.post('/',(req,res)=>{
             feature.modified=req.body.feature.modified;    
             feature.area=req.body.feature.area;
             feature.userstories=req.body.feature.userstories;
-            feature.createdby=req.body.feature.createdby;          
+            feature.createdby=req.body.feature.createdby;      
+            console.log('saving feature :'+JSON.stringify(feature));    
             feature.save(function (err, updatedFeature) {
                 if (err) return err;
                 res.send(updatedFeature);

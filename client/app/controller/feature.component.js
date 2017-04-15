@@ -1,4 +1,14 @@
 "use strict";
+var __extends = (this && this.__extends) || (function () {
+    var extendStatics = Object.setPrototypeOf ||
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
+        extendStatics(d, b);
+        function __() { this.constructor = d; }
+        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+    };
+})();
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -10,13 +20,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require("@angular/core");
 var feature_services_1 = require("../service/feature.services");
+var Component_action_1 = require("../base/Component.action");
 var feature_1 = require("../model/feature");
-var FeatureComponent = (function () {
+var FeatureComponent = (function (_super) {
+    __extends(FeatureComponent, _super);
     function FeatureComponent(featureService) {
-        this.featureService = featureService;
-        this.mode = "start";
-        this.isEditMode = false;
-        this.getFeatures();
+        var _this = _super.call(this) || this;
+        _this.featureService = featureService;
+        _this.mode = "start";
+        _this.isEditMode = false;
+        _this.getFeatures();
+        return _this;
     }
     FeatureComponent.prototype.getFeatures = function () {
         var _this = this;
@@ -37,6 +51,11 @@ var FeatureComponent = (function () {
     };
     FeatureComponent.prototype.processFeature = function (form) {
         var _this = this;
+        console.log('memberId :' + _super.prototype.getMember.call(this).memberId);
+        this.selectedFeature.createdby = _super.prototype.getMember.call(this).memberId;
+        this.selectedFeature.created = new Date();
+        this.selectedFeature.modified = new Date();
+        console.log('this.selectedFeature  :' + JSON.stringify(this.selectedFeature));
         this.featureService.processFeature(this.mode, this.selectedFeature)
             .subscribe(function (result) {
             console.log('new feature processed :' + result);
@@ -61,7 +80,7 @@ var FeatureComponent = (function () {
         }
     };
     return FeatureComponent;
-}());
+}(Component_action_1.ComponentAction));
 FeatureComponent = __decorate([
     core_1.Component({
         moduleId: module.id,

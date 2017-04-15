@@ -37,10 +37,10 @@ var RegisterComponent = (function (_super) {
         this.http.post('api/validate/register/', { email: this.email, password: this.password })
             .subscribe(function (response) {
             _this.isSuccess = response.json().success;
-            var member = new member_1.Member(_this.email, "false"); //isadmine:false
-            _super.prototype.setMember.call(_this, member);
-            console.log('success:' + _this.isSuccess);
             if (_this.isSuccess) {
+                var member = new member_1.Member(_this.email, "false", response.json().userID); //isadmine:false
+                _super.prototype.setMember.call(_this, member);
+                console.log('success:' + _this.isSuccess);
                 _this.router.navigate(['./dash']);
             }
         });

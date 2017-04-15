@@ -1,6 +1,7 @@
 "use strict";
 var Member = (function () {
-    function Member(name, admine) {
+    function Member(memberId, name, admine) {
+        this.memberId = memberId;
         this.membername = name;
         this.isadmine = admine;
     }

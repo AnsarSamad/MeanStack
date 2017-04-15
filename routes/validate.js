@@ -12,11 +12,11 @@ var strategy = require('../config/passport')(passport);
 router.post('/login',function(req,res,next){
     console.log('post request for login validation:'+req.body.email)
     try{
-        passport.authenticate('local',function(err,isExist,isadmine) {
-            console.log('response from strategy isExist :'+isExist)    
+            passport.authenticate('local',function(err,response) {
+            console.log('response from strategy :'+JSON.stringify(response))    
             res.status(200);
             res.contentType('json');
-            res.send({isvalid:isExist,isadmin:isadmine});
+            res.send(response);
         })(req, res, next);
     }catch(e){
         console.log('Error :'+e)
@@ -42,9 +42,10 @@ console.log(`am in validator ${email} ${password}`)
         return dbUtil.addLocalUser(email,password,isadmin);
     })
 
-    .then((useradded)=>{
+    .then((useradded,user)=>{
         console.log('is user added :'+useradded);
-        res.json({success : useradded});           
+        console.log('user :'+user);
+        res.json({success : useradded,"userID":user._id});           
     },(usernotadded)=>{
         console.log('user not added :'+usernotadded);
         res.json({success : usernotadded});      

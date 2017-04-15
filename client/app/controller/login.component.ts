@@ -52,8 +52,9 @@ export class LoginComponent extends ComponentAction{
         this.http.post('/api/validate/login', {email:ngform.value.inputEmail,password:ngform.value.inputPassword})
         .map(result => result.json())
         .subscribe((result) => {
+            console.log('userID :'+result.userID);
             this.isloggedIn = result.isvalid;
-            let member = new Member(user,result.isadmine);
+            let member = new Member(result.userID, user,result.isadmine);
             super.setMember(member);
             if(this.isloggedIn){
                 this.router.navigate(['./dash'])

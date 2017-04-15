@@ -1,5 +1,6 @@
 import {Component} from '@angular/core'
 import {FeatureServices} from '../service/feature.services'
+import {ComponentAction} from '../base/Component.action'
 import {Features} from '../model/feature'
 import { NgForm } from '@angular/forms';
 @Component({
@@ -64,13 +65,14 @@ import { NgForm } from '@angular/forms';
 
 })
 
-export class FeatureComponent{
+export class FeatureComponent extends ComponentAction{
 
     features:Features[]
     mode :string = "start";
     isEditMode = false;
     selectedFeature  : Features ;
     constructor(private featureService:FeatureServices){
+        super();
        this.getFeatures();
     }
 
@@ -92,6 +94,13 @@ export class FeatureComponent{
         this.mode = "start";
     }
     processFeature(form:NgForm){
+            console.log('memberId :'+ super.getMember().memberId);
+            this.selectedFeature.createdby = super.getMember().memberId;
+            this.selectedFeature.created = new Date();
+            this.selectedFeature.modified = new Date();
+
+            console.log('this.selectedFeature  :'+JSON.stringify(this.selectedFeature));
+
             this.featureService.processFeature(this.mode,this.selectedFeature)
             .subscribe(result=>{
                 console.log('new feature processed :'+result)

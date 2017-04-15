@@ -39,8 +39,9 @@ var LoginComponent = (function (_super) {
         this.http.post('/api/validate/login', { email: ngform.value.inputEmail, password: ngform.value.inputPassword })
             .map(function (result) { return result.json(); })
             .subscribe(function (result) {
+            console.log('userID :' + result.userID);
             _this.isloggedIn = result.isvalid;
-            var member = new member_1.Member(user, result.isadmine);
+            var member = new member_1.Member(result.userID, user, result.isadmine);
             _super.prototype.setMember.call(_this, member);
             if (_this.isloggedIn) {
                 _this.router.navigate(['./dash']);

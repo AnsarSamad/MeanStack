@@ -8,7 +8,7 @@ var ComponentAction = (function () {
     };
     ComponentAction.prototype.getMember = function () {
         if (member_1.Member == null) {
-            return new member_1.Member("", "false");
+            return new member_1.Member("", "false", "");
         }
         return ComponentAction.member;
     };

@@ -47,12 +47,12 @@ constructor(private http:Http , private router:Router){
       this.http.post('api/validate/register/',{email:this.email,password:this.password})
      .subscribe(
          (response) => {
-              this.isSuccess = response.json().success  
-              let member = new Member(this.email,"false");//isadmine:false
-              super.setMember(member);
-              console.log('success:'+this.isSuccess);
+              this.isSuccess = response.json().success;
               if(this.isSuccess){
-                  this.router.navigate(['./dash']);
+                    let member = new Member(this.email,"false",response.json().userID);//isadmine:false
+                    super.setMember(member);
+                    console.log('success:'+this.isSuccess);
+                    this.router.navigate(['./dash']);
               } 
          });
         
