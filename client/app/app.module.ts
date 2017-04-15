@@ -15,7 +15,9 @@ import {WeatherComponent} from '../app/controller/weather.component'
 import {LoginComponent} from '../app/controller/login.component'
 import {RegisterComponent} from '../app/controller/register.component'
 import {DashBoardcomponent} from '../app/controller/dashboard.component'
+import {FeatureComponent} from '../app/controller/feature.component'
 import {AddTaskService} from '../app/task/addtask.service'
+import {FeatureServices} from '../app/service/feature.services'
 //index routing , redirect to login for the blank request
 const indexRoutes:Route = {
   path:'',component:LoginComponent
@@ -63,7 +65,13 @@ const routes: Routes = [
       { 
          path: 'weather',
          component: WeatherComponent
-      }
+      },
+      { 
+         path: 'feature',
+         component: FeatureComponent,
+      },
+
+
   ]
  }
 ];
@@ -80,7 +88,7 @@ export const routing = RouterModule.forRoot(routes);
     HttpModule,
     routing
     ],
-    providers: [TaskService,EventService,AddEventService,AddTaskService],
+    providers: [TaskService,EventService,AddEventService,AddTaskService,FeatureServices],
   declarations: [
      AppComponent,
      LoginComponent,
@@ -90,7 +98,8 @@ export const routing = RouterModule.forRoot(routes);
      AddNewEventComponent,
      WeatherComponent,
      RegisterComponent,
-     DashBoardcomponent
+     DashBoardcomponent,
+     FeatureComponent,
      ],
   bootstrap:    [
      AppComponent 

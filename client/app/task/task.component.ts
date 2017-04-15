@@ -18,7 +18,7 @@ import 'rxjs/Rx';
             <router-outlet></router-outlet>
         <div class="container">
             <div class="row">
-                <div class="table-hover table-responsive">
+                <div class="table-hover table-responsive table-bordered">
                     <table class="table">
                         <thead>
                             <tr>

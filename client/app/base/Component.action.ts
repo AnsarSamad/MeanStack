@@ -8,6 +8,9 @@ export abstract class ComponentAction{
         ComponentAction.member = member;
     }
     getMember(){
+        if(Member == null){
+            return new Member("","false");
+        }
         return ComponentAction.member;
     }
 

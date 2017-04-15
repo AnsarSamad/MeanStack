@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "debug": "node --debug-brk --inspect server.js"
   },
   "author": "",
   "license": "ISC",

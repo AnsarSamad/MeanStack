@@ -22,7 +22,9 @@ var weather_component_1 = require("../app/controller/weather.component");
 var login_component_1 = require("../app/controller/login.component");
 var register_component_1 = require("../app/controller/register.component");
 var dashboard_component_1 = require("../app/controller/dashboard.component");
+var feature_component_1 = require("../app/controller/feature.component");
 var addtask_service_1 = require("../app/task/addtask.service");
+var feature_services_1 = require("../app/service/feature.services");
 //index routing , redirect to login for the blank request
 var indexRoutes = {
     path: '', component: login_component_1.LoginComponent
@@ -65,7 +67,11 @@ var routes = [
             {
                 path: 'weather',
                 component: weather_component_1.WeatherComponent
-            }
+            },
+            {
+                path: 'feature',
+                component: feature_component_1.FeatureComponent,
+            },
         ]
     }
 ];
@@ -84,7 +90,7 @@ AppModule = __decorate([
             http_1.HttpModule,
             exports.routing
         ],
-        providers: [task_service_1.TaskService, event_service_1.EventService, addevent_service_1.AddEventService, addtask_service_1.AddTaskService],
+        providers: [task_service_1.TaskService, event_service_1.EventService, addevent_service_1.AddEventService, addtask_service_1.AddTaskService, feature_services_1.FeatureServices],
         declarations: [
             app_component_1.AppComponent,
             login_component_1.LoginComponent,
@@ -94,7 +100,8 @@ AppModule = __decorate([
             addevent_component_1.AddNewEventComponent,
             weather_component_1.WeatherComponent,
             register_component_1.RegisterComponent,
-            dashboard_component_1.DashBoardcomponent
+            dashboard_component_1.DashBoardcomponent,
+            feature_component_1.FeatureComponent,
         ],
         bootstrap: [
             app_component_1.AppComponent

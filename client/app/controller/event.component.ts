@@ -10,7 +10,17 @@ import 'rxjs/Rx'
     selector:'event',
     template:`
     
-
+        <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <div>
+            <button routerLink="../events" class="btn btn-primary">All Events</button>
+            <button routerLink="addevent" class="btn btn-primary">Add Events</button>
+        </div>
+            <!-- loads child component list task and add new task -->
+            <router-outlet></router-outlet>
+          <div class="container">
+            <div class="row">
+                <div class="table-hover table-responsive table-bordered">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th>Title</th>
@@ -33,6 +43,10 @@ import 'rxjs/Rx'
                                 <td><a class='btn btn-info btn-xs' href="#"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
                             </tr>
                     </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     `
 })
 export class EventComponent{
