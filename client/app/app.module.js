@@ -41,7 +41,7 @@ var routes = [
         children: [
             {
                 path: '',
-                redirectTo: 'events',
+                redirectTo: 'feature',
                 pathMatch: 'full'
             },
             {

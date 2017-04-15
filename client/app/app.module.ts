@@ -36,9 +36,9 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'dash', component: DashBoardcomponent,
     children: [
-      {   // shows events as default
+      {   // shows feature   as default
           path: '',
-          redirectTo: 'events',
+          redirectTo: 'feature',
           pathMatch: 'full'
       },
       {   

@@ -42,7 +42,7 @@ import { NgForm } from '@angular/forms';
                                 <th class="col-md-2">Title</th>
                                 <th class="col-md-2">Descr</th>
                                 <th class="col-md-1">Area</th>
-                                <th class="col-md-1">No Of User Stories</th>
+                                <th class="col-md-1">User Stories</th>
                                 <th class="col-md-1"></th>
                             </tr>
                         </thead>
@@ -53,7 +53,7 @@ import { NgForm } from '@angular/forms';
                                 <td>{{feature.area}}</td>
                                 <td *ngIf ="feature.userstories == null" >0</td>
                                 <td *ngIf ="feature.userstories != null" > {{feature.userstories.length}}</td>
-                                <td><a class='btn btn-info btn-xs'  (click)="editFeature(feature._id)"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a href="#" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                                <td><a class='btn btn-info btn-xs'  (click)="editFeature(feature._id)"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a (click)="deleteFeature(feature)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
                             </tr>
                     </tbody>
                 </table>
@@ -116,6 +116,17 @@ export class FeatureComponent extends ComponentAction{
         this.mode = "update";
 
     }
+    deleteFeature(feature : Features){
+        this.mode ="delete";
+        this.featureService.processFeature(this.mode,feature)
+        .subscribe(result=>{
+            console.log('delete resposne from server :'+result);
+            let index: number = this.features.indexOf(feature);
+            if (index !== -1) {
+                this.features.splice(index, 1);
+            }               
+        })
+     }
 
     getFeature(featureId:string):Features{
         var tempFeature:Features;
