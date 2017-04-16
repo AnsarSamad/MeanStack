@@ -35,8 +35,8 @@ import { NgForm } from '@angular/forms';
                 <br/>
           <div class="container">
             <div class="row">
-                <div class="table-hover table-responsive table-bordered">
-                    <table class="table">
+                <div class="">
+                    <table class="table table-hover table-responsive table-bordered">
                         <thead>
                             <tr>
                                 <th class="col-md-2">Title</th>

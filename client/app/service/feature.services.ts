@@ -14,4 +14,5 @@ export class FeatureServices{
         return this.http.post('/api/feature',{"mode":mode,"feature":feature})
         .map(result=>result.json());
     }
+   
 }
