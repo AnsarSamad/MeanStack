@@ -4,15 +4,18 @@ var path = require('path');
 var session = require('express-session');
 var passport = require('passport');
 var flash    = require('connect-flash');
-var mongoose  =  require('mongoose');
+var mongoose = require('mongoose');
+var bluebird = require('bluebird');
 var app = express();
 
 var PropertiesReader = require('properties-reader');
 var properties = PropertiesReader(path.join(__dirname,'db/config.properties'));
 var url = properties.get('db.url');
 
-mongoose.connect(url);
-var db = mongoose.connection;
+// Use bluebird
+var options = { promiseLibrary:bluebird };
+var db = mongoose.createConnection(url, options);
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
   console.log("connect succesfull");
@@ -34,7 +37,7 @@ app.engine('html',require('ejs').renderFile);
 
 
 
-app.use(express.static(path.join(__dirname,'client')));
+app.use(express.static(path.join(__dirname,'client/dist')));
 
 
 app.use(bodyparser.json());
@@ -60,7 +63,7 @@ app.use('/api/userstory',userstory);
 app.use('/api/feature',feature);
 
 function redirectInvalidRouters(req,res){
-    res.sendFile('index.html',{root:'./client'})
+    res.sendFile('index.html',{root:'./client/dist/'})
 }
 app.use(redirectInvalidRouters);
 

@@ -1,4 +1,6 @@
 var request = require('request')
+var math = require('mathjs');
+
 var getWeather  = (address,lat,lng)=>{
     return new Promise((resolve,reject)=>{
         request({
@@ -13,7 +15,7 @@ var getWeather  = (address,lat,lng)=>{
                 resolve({
                     address:address,
                     summary: body.currently.summary,
-                    temperature:body.currently.temperature,
+                    temperature:math.round(math.chain(body.currently.temperature).subtract(32).multiply(5/9).done(),2),//(Tc = Tf-32)*(5/9) 
                     humidity:body.currently.humidity
                 })
             }

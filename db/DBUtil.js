@@ -21,7 +21,8 @@ function isUserExist(username,password){
 
 }
 
-function addLocalUser(username,password,isadmin){
+function addLocalUser(username, password, isadmin) {
+    console.log('adding new user:'+username+' isadmin:'+isadmin)
      var localUser = new User({local:{ email:username,password:password},isadmin:isadmin })       
      return new Promise(function(resolve,reject){
         localUser.save(function(err,user){
