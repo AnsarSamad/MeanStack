@@ -1,4 +1,2 @@
 node_modules/*
-client/e2e/*
 client/node_modules/*
-client/src/*
