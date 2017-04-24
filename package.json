@@ -20,7 +20,7 @@
     "express-session": "^1.14.2",
     "jade": "~1.11.0",
     "mathjs": "^3.12.1",
-    "mongoose": "^4.7.5",
+    "mongoose": "^4.9.6",
     "morgan": "~1.7.0",
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",

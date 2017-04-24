@@ -13,8 +13,9 @@ var properties = PropertiesReader(path.join(__dirname,'db/config.properties'));
 var url = properties.get('db.url');
 
 // Use bluebird
-var options = { promiseLibrary:bluebird };
-var db = mongoose.createConnection(url, options);
+
+mongoose.connect(url);
+var db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function callback () {
