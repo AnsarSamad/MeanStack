@@ -2,12 +2,3 @@ node_modules/*
 client/e2e/*
 client/node_modules/*
 client/src/*
-client/.angular-cli.json
-client/.editorconfig
-client/.gitignore
-client/karma.conf.js
-client/package.json
-client/protractor.conf.js
-client/README.md
-client/tsconfig.json
-client/tslint.json
