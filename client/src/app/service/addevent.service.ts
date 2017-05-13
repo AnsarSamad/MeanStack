@@ -7,7 +7,6 @@ export class AddEventService{
 
     }
     saveEvent(){
-        console.log('am in save event service calll')
            const eventData = 
                         {
                             title:'test',

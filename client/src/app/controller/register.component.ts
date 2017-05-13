@@ -52,7 +52,6 @@ export class RegisterComponent extends ComponentAction {
                 if (this.isSuccess) {
                     let member = new Member(this.email, "false", response.json().userID);//isadmine:false
                     super.setMember(member);
-                    console.log('success:' + this.isSuccess);
                     // add user to firebase
                     let firebase = new firebaseConfig();
                     const userObj = { "userId": response.json().userID, "email": this.email }

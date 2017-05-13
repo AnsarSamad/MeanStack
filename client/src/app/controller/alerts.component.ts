@@ -25,6 +25,6 @@ export class AlertsComponent implements OnInit {
     showAlerts: boolean = false;
     messageArray: Array<string> = [""];
     ngOnInit() {
-        console.log('alert Component , alert object received is :' + JSON.stringify(this.alert));
+        
     }
 }

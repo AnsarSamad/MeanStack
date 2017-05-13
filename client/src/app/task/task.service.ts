@@ -10,7 +10,6 @@ export class TaskService{
 
     }
     getTask(){
-        console.log('am in gettask service')
         return this.http.get('/api/task')
         .map(result=>result.json());
     }

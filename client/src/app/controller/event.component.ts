@@ -50,7 +50,6 @@ mode:String = "start";
 constructor(eventService:EventService){
     eventService.getEvents()
     .subscribe(result => {
-        console.log('events from mongo :'+result)
         this.events = result;
     })
 

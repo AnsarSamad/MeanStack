@@ -46,12 +46,10 @@ export class LoginComponent extends ComponentAction{
 
 
     validate(ngform:NgForm){
-        console.log('values :'+ngform.value)
         var user = ngform.value.inputEmail ;
         this.http.post('/api/validate/login', {email:ngform.value.inputEmail,password:ngform.value.inputPassword})
         .map(result => result.json())
         .subscribe((result) => {
-            console.log('userID :'+result.userID);
             this.isloggedIn = result.isvalid;
             let member = new Member(result.userID, user,result.isadmine);
             super.setMember(member);

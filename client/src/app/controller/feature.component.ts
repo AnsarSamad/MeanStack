@@ -110,9 +110,7 @@ export class FeatureComponent extends ComponentAction {
     getFeatures() {
         this.featureService.getFeatures()
             .subscribe(result => {
-                console.log('features from mongo :' + JSON.stringify(result))
                 this.features = result;
-                console.log('this features :' + JSON.stringify(this.features))
             })
     }
 
@@ -125,16 +123,12 @@ export class FeatureComponent extends ComponentAction {
         this.mode = "start";
     }
     processFeature(form: NgForm) {
-        console.log('memberId :' + super.getMember().memberId);
         this.selectedFeature.createdby = super.getMember().memberId;
         this.selectedFeature.created = new Date();
         this.selectedFeature.modified = new Date();
 
-        console.log('this.selectedFeature  :' + JSON.stringify(this.selectedFeature));
-
         this.featureService.processFeature(this.mode, this.selectedFeature)
             .subscribe(result => {
-                console.log('new feature processed :' + result)
                 // push to array only if insert mode  , otherwise it will make duplicates since we returning features from server for both insert and update (using feature.save())
                 if (this.mode == "insert") {
                     this.features.push(result);
@@ -151,7 +145,6 @@ export class FeatureComponent extends ComponentAction {
         this.mode = "delete";
         this.featureService.processFeature(this.mode, feature)
             .subscribe(result => {
-                console.log('delete resposne from server :' + result);
                 let index: number = this.features.indexOf(feature);
                 if (index !== -1) {
                     this.features.splice(index, 1);
@@ -164,17 +157,14 @@ export class FeatureComponent extends ComponentAction {
         for (var i = 0; i < this.features.length; i++) {
             tempFeature = this.features[i];
             if (tempFeature._id == featureId) {
-                console.log('feature found :' + JSON.stringify(tempFeature));
                 return tempFeature;
             }
         }
     }
 
     open() {
-        console.log('u clicked me');
         const modalRef = this.modalService.open(StoryComponents);
         modalRef.componentInstance.name = 'World';
-        console.log('finshed');
     }
 
     addstories(featureId) {
@@ -183,7 +173,6 @@ export class FeatureComponent extends ComponentAction {
     }
 
     showAlerts(alert: object) {
-        console.log('showwing alerts :' + JSON.stringify(alert));
         this.alertObj = alert;
     }
 

@@ -60,7 +60,6 @@ export class AddNewTaskComponent{
     }
 
     addTask(form:NgForm){
-        // console.log(form.value);
         // const task = new Task(form.value.title,false);
         // this.addTaskService.addtask(task);
     }

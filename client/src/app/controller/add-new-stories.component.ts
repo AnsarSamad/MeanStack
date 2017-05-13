@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ComponentAction } from '../base/Component.action'
 import { Features } from '../model/feature'
@@ -48,25 +48,20 @@ export class AddNewStoriesComponent implements OnInit {
 
   @Output() onVoted = new EventEmitter<object>();
 
-
   ngOnInit() {
-    console.log('This is the value for selectedFeature: ' + JSON.stringify(this.selectedFeature));
+
   }
   constructor(private featureService: FeatureServices) {
 
   }
   addUserStory(form: NgForm) {
-    console.log('user story :' + this.userStory);
     this.featureService.processUserStories(systemConstant.INSERT, this.userStory)
       .subscribe(result => {
-        console.log('new userstory processed :' + result);
         this.selectedFeature.userstories.push(result._id);
-        console.log('Feature :' + JSON.stringify(this.selectedFeature));
         this.featureService.processFeature(systemConstant.INSERT, this.selectedFeature)
           .subscribe(result => {
-            console.log('story attached to feature');
             //this.onAlertAdded.emit({type: "success",message:"user_story_added"});
-             this.onVoted.emit({type:"success",message:"User story added Succesfully ."});
+            this.onVoted.emit({ type: "success", message: "User story added Succesfully ." });
             this.userStory = new UserStories("", "");
           })
 

@@ -1,17 +1,19 @@
-import {Member} from './member'
-export abstract class ComponentAction{
-    public static member:Member
-    constructor(){
+import { Member } from './member'
+export abstract class ComponentAction {
+    public static member: Member
+    constructor() {
 
     }
-    setMember(member:Member){
+    setMember(member: Member) {
         ComponentAction.member = member;
     }
-    getMember(){
-        if(Member == null){
-            return new Member("","false","");
+    getMember() {
+        if (ComponentAction.member == null || typeof ComponentAction.member == 'undefined' ) {
+            return new Member("", "false", "");
+        } else {
+            return ComponentAction.member;
         }
-        return ComponentAction.member;
+
     }
 
 }

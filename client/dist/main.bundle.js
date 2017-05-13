@@ -41,7 +41,6 @@ var AddEventService = (function () {
         this.http = http;
     }
     AddEventService.prototype.saveEvent = function () {
-        console.log('am in save event service calll');
         var eventData = {
             title: 'test',
             descr: 'test',
@@ -166,7 +165,6 @@ var TaskService = (function () {
         this.http = http;
     }
     TaskService.prototype.getTask = function () {
-        console.log('am in gettask service');
         return this.http.get('/api/task')
             .map(function (result) { return result.json(); });
     };
@@ -503,19 +501,14 @@ var AddNewStoriesComponent = (function () {
         this.onVoted = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["f" /* EventEmitter */]();
     }
     AddNewStoriesComponent.prototype.ngOnInit = function () {
-        console.log('This is the value for selectedFeature: ' + JSON.stringify(this.selectedFeature));
     };
     AddNewStoriesComponent.prototype.addUserStory = function (form) {
         var _this = this;
-        console.log('user story :' + this.userStory);
         this.featureService.processUserStories(__WEBPACK_IMPORTED_MODULE_4__base_systemConstant__["a" /* systemConstant */].INSERT, this.userStory)
             .subscribe(function (result) {
-            console.log('new userstory processed :' + result);
             _this.selectedFeature.userstories.push(result._id);
-            console.log('Feature :' + JSON.stringify(_this.selectedFeature));
             _this.featureService.processFeature(__WEBPACK_IMPORTED_MODULE_4__base_systemConstant__["a" /* systemConstant */].INSERT, _this.selectedFeature)
                 .subscribe(function (result) {
-                console.log('story attached to feature');
                 //this.onAlertAdded.emit({type: "success",message:"user_story_added"});
                 _this.onVoted.emit({ type: "success", message: "User story added Succesfully ." });
                 _this.userStory = new __WEBPACK_IMPORTED_MODULE_2__model_userStory__["a" /* UserStories */]("", "");
@@ -580,11 +573,10 @@ var AddNewEventComponent = (function () {
         //                     tsk_content:form.value.tsk_content,
         //                     tsk_price:form.value.tsk_price
         //                 } 
-        //     console.log('direct value:'+JSON.stringify(eventData));
         //     this.http.post('http://localhost:3000/api/events/',eventData)
         //     .map(result=>JSON.stringify(result));
         this.addeventService.saveEvent()
-            .subscribe(function (response) { return console.log(response); });
+            .subscribe(function (response) { return console.log('event added'); });
     };
     return AddNewEventComponent;
 }());
@@ -624,7 +616,6 @@ var AlertsComponent = (function () {
         this.messageArray = [""];
     }
     AlertsComponent.prototype.ngOnInit = function () {
-        console.log('alert Component , alert object received is :' + JSON.stringify(this.alert));
     };
     return AlertsComponent;
 }());
@@ -765,7 +756,6 @@ var EventComponent = (function () {
         this.mode = "start";
         eventService.getEvents()
             .subscribe(function (result) {
-            console.log('events from mongo :' + result);
             _this.events = result;
         });
     }
@@ -855,9 +845,7 @@ var FeatureComponent = (function (_super) {
         var _this = this;
         this.featureService.getFeatures()
             .subscribe(function (result) {
-            console.log('features from mongo :' + JSON.stringify(result));
             _this.features = result;
-            console.log('this features :' + JSON.stringify(_this.features));
         });
     };
     FeatureComponent.prototype.showAddFeature = function () {
@@ -870,14 +858,11 @@ var FeatureComponent = (function (_super) {
     };
     FeatureComponent.prototype.processFeature = function (form) {
         var _this = this;
-        console.log('memberId :' + _super.prototype.getMember.call(this).memberId);
         this.selectedFeature.createdby = _super.prototype.getMember.call(this).memberId;
         this.selectedFeature.created = new Date();
         this.selectedFeature.modified = new Date();
-        console.log('this.selectedFeature  :' + JSON.stringify(this.selectedFeature));
         this.featureService.processFeature(this.mode, this.selectedFeature)
             .subscribe(function (result) {
-            console.log('new feature processed :' + result);
             // push to array only if insert mode  , otherwise it will make duplicates since we returning features from server for both insert and update (using feature.save())
             if (_this.mode == "insert") {
                 _this.features.push(result);
@@ -893,7 +878,6 @@ var FeatureComponent = (function (_super) {
         this.mode = "delete";
         this.featureService.processFeature(this.mode, feature)
             .subscribe(function (result) {
-            console.log('delete resposne from server :' + result);
             var index = _this.features.indexOf(feature);
             if (index !== -1) {
                 _this.features.splice(index, 1);
@@ -905,23 +889,19 @@ var FeatureComponent = (function (_super) {
         for (var i = 0; i < this.features.length; i++) {
             tempFeature = this.features[i];
             if (tempFeature._id == featureId) {
-                console.log('feature found :' + JSON.stringify(tempFeature));
                 return tempFeature;
             }
         }
     };
     FeatureComponent.prototype.open = function () {
-        console.log('u clicked me');
         var modalRef = this.modalService.open(StoryComponents);
         modalRef.componentInstance.name = 'World';
-        console.log('finshed');
     };
     FeatureComponent.prototype.addstories = function (featureId) {
         this.selectedFeature = this.getFeature(featureId);
         this.mode = "addStories";
     };
     FeatureComponent.prototype.showAlerts = function (alert) {
-        console.log('showwing alerts :' + JSON.stringify(alert));
         this.alertObj = alert;
     };
     return FeatureComponent;
@@ -975,7 +955,6 @@ var FileUploadComponents = (function () {
         var storageRef = this.storage.ref();
         var imgRef = storageRef.child('images/Koala.jpg');
         imgRef.getDownloadURL().then(function (url) {
-            console.log('image URL :' + url);
             _this.image = url;
         });
     }
@@ -986,19 +965,15 @@ var FileUploadComponents = (function () {
             var file = fileList[i];
             var formData = new FormData();
             formData.append('uploadFile', file, file.name);
-            console.log('file :' + file.name);
-            console.log('file type:' + file.type);
             var storageRef = this.storage.ref();
             var imgRef = storageRef.child('images/' + file.name);
             imgRef.put(file).then(function (snapshot) {
-                console.log('Uploaded a file , adding datasbase entry :');
                 var metaData = {
                     "bucket": snapshot.metadata.bucket, "fullPath": snapshot.metadata.fullPath,
                     "name": snapshot.metadata.name, "size": snapshot.metadata.size,
                     "contentType": snapshot.metadata.contentType,
                     "downloadURLs": snapshot.metadata.downloadURLs[0]
                 };
-                console.log('meta data:' + metaData);
                 _this.database.ref('images/' + snapshot.metadata.generation).set(metaData);
             });
         }
@@ -1062,12 +1037,10 @@ var LoginComponent = (function (_super) {
     }
     LoginComponent.prototype.validate = function (ngform) {
         var _this = this;
-        console.log('values :' + ngform.value);
         var user = ngform.value.inputEmail;
         this.http.post('/api/validate/login', { email: ngform.value.inputEmail, password: ngform.value.inputPassword })
             .map(function (result) { return result.json(); })
             .subscribe(function (result) {
-            console.log('userID :' + result.userID);
             _this.isloggedIn = result.isvalid;
             var member = new __WEBPACK_IMPORTED_MODULE_4__base_member__["a" /* Member */](result.userID, user, result.isadmine);
             _super.prototype.setMember.call(_this, member);
@@ -1144,7 +1117,6 @@ var RegisterComponent = (function (_super) {
             if (_this.isSuccess) {
                 var member = new __WEBPACK_IMPORTED_MODULE_4__base_member__["a" /* Member */](_this.email, "false", response.json().userID); //isadmine:false
                 _super.prototype.setMember.call(_this, member);
-                console.log('success:' + _this.isSuccess);
                 // add user to firebase
                 var firebase = new __WEBPACK_IMPORTED_MODULE_5__base_firebaseConfig__["a" /* firebaseConfig */]();
                 var userObj = { "userId": response.json().userID, "email": _this.email };
@@ -1197,12 +1169,10 @@ var WeatherComponent = (function () {
     }
     WeatherComponent.prototype.getWeatherData = function () {
         var _this = this;
-        console.log('getting weather data for location :' + this.address);
         this.http.get("/api/weather/" + this.address)
             .map(function (weather) { return weather.json(); })
             .subscribe(function (weatherObj) {
             _this.weatherObj = weatherObj;
-            console.log('weatherObj :' + JSON.stringify(_this.weatherObj));
             _this.isSuccess = true;
         });
     };
@@ -1261,7 +1231,6 @@ var AddNewTaskComponent = (function () {
         this.addTaskService = addTaskService;
     }
     AddNewTaskComponent.prototype.addTask = function (form) {
-        // console.log(form.value);
         // const task = new Task(form.value.title,false);
         // this.addTaskService.addtask(task);
     };
@@ -1354,10 +1323,12 @@ var ComponentAction = (function () {
         ComponentAction.member = member;
     };
     ComponentAction.prototype.getMember = function () {
-        if (__WEBPACK_IMPORTED_MODULE_0__member__["a" /* Member */] == null) {
+        if (ComponentAction.member == null || typeof ComponentAction.member == 'undefined') {
             return new __WEBPACK_IMPORTED_MODULE_0__member__["a" /* Member */]("", "false", "");
         }
-        return ComponentAction.member;
+        else {
+            return ComponentAction.member;
+        }
     };
     return ComponentAction;
 }());

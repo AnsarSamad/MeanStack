@@ -14,12 +14,10 @@ export class WeatherComponent{
     }
 
     getWeatherData(){
-        console.log('getting weather data for location :'+this.address)
         this.http.get(`/api/weather/${this.address}`)
         .map((weather)=> weather.json())
         .subscribe((weatherObj)=>{
             this.weatherObj = weatherObj;
-            console.log('weatherObj :'+JSON.stringify(this.weatherObj));
             this.isSuccess  = true;
         })
     }

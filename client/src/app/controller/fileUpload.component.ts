@@ -40,8 +40,6 @@ export class FileUploadComponents {
 
         var imgRef = storageRef.child('images/Koala.jpg');
         imgRef.getDownloadURL().then((url: any) => {
-
-            console.log('image URL :' + url);
             this.image = url
         });
     }
@@ -52,21 +50,16 @@ export class FileUploadComponents {
             let file: File = fileList[i];
             let formData: FormData = new FormData();
             formData.append('uploadFile', file, file.name);
-            console.log('file :' + file.name);
-            console.log('file type:' + file.type);
-
 
             var storageRef = this.storage.ref();
             var imgRef = storageRef.child('images/' + file.name);
             imgRef.put(file).then((snapshot) => {
-                console.log('Uploaded a file , adding datasbase entry :');
                 var metaData = {
                     "bucket": snapshot.metadata.bucket, "fullPath": snapshot.metadata.fullPath,
                     "name": snapshot.metadata.name, "size": snapshot.metadata.size,
                     "contentType": snapshot.metadata.contentType,
                     "downloadURLs": snapshot.metadata.downloadURLs[0]
                 }
-                console.log('meta data:' + metaData);
                 this.database.ref('images/' + snapshot.metadata.generation).set(metaData);
             });
 
