@@ -1,12 +1,13 @@
-import{Component,Input,Output} from '@angular/core'
-import{Router} from '@angular/router'
-import{Http} from '@angular/http'
-import {Observable} from 'rxjs/Observable';
-import {ComponentAction} from '../base/Component.action'
-import {Member} from '../base/member'
+import { Component, Input, Output } from '@angular/core'
+import { Router } from '@angular/router'
+import { Http } from '@angular/http'
+import { Observable } from 'rxjs/Observable';
+import { ComponentAction } from '../base/Component.action'
+import { Member } from '../base/member'
+import { firebaseConfig } from '../base/firebaseConfig'
 @Component({
-    moduleId:module.id,
-    selector:'signup',
+    moduleId: module.id,
+    selector: 'signup',
     template: `
 
         <link href="assets/css/signin.css" rel="stylesheet">
@@ -33,29 +34,38 @@ import {Member} from '../base/member'
 })
 
 
- 
 
-export class RegisterComponent extends ComponentAction{
 
-email:string;
-password:string
-isSuccess :boolean  = true;
-constructor(private http:Http , private router:Router){
-    super();
-}
- register(){    
-      this.http.post('api/validate/register/',{email:this.email,password:this.password})
-     .subscribe(
-         (response) => {
-              this.isSuccess = response.json().success;
-              if(this.isSuccess){
-                    let member = new Member(this.email,"false",response.json().userID);//isadmine:false
+export class RegisterComponent extends ComponentAction {
+
+    email: string;
+    password: string
+    isSuccess: boolean = true;
+    constructor(private http: Http, private router: Router) {
+        super();
+    }
+    register() {
+        this.http.post('api/validate/register/', { email: this.email, password: this.password })
+            .subscribe(
+            (response) => {
+                this.isSuccess = response.json().success;
+                if (this.isSuccess) {
+                    let member = new Member(this.email, "false", response.json().userID);//isadmine:false
                     super.setMember(member);
-                    console.log('success:'+this.isSuccess);
+                    console.log('success:' + this.isSuccess);
+                    // add user to firebase
+                    let firebase = new firebaseConfig();
+                    const userObj = { "userId": response.json().userID, "email": this.email }
+                    firebase.addToDatabase('user', response.json().userID, userObj);
+                    firebase.addUser(this.email, this.password).catch(function (error) {
+                        var errorMessage = error.message;
+                        alert(errorMessage);
+                    });
+
                     this.router.navigate(['./dash']);
-              } 
-         });
-        
-}
+                }
+            });
+
+    }
 
 }

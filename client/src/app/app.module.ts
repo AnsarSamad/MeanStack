@@ -20,7 +20,10 @@ import {AddTaskService} from '../app/task/addtask.service'
 import {FeatureServices } from '../app/service/feature.services'
 import {FileUploadComponents } from '../app/controller/fileUpload.component'
 import {AngularFireModule } from 'angularfire2'
-import {NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import {NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AddNewStoriesComponent } from './controller/add-new-stories.component';
+import {AlertsComponent} from './controller/alerts.component'
+
 
 
 //index routing , redirect to login for the blank request
@@ -74,6 +77,10 @@ const routes: Routes = [
       { 
          path: 'feature',
          component: FeatureComponent,
+         children: [{
+           path: 'user-story',
+           component:AddNewStoriesComponent
+         }]
       },
       { 
          path: 'uploads',
@@ -116,7 +123,9 @@ var firebaseConfig = {
       DashBoardcomponent,
       FeatureComponent,
       FileUploadComponents,
-      StoryComponents
+      StoryComponents,
+      AddNewStoriesComponent,
+      AlertsComponent
      ],
   entryComponents: [StoryComponents],
     bootstrap: [

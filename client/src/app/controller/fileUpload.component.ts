@@ -1,4 +1,4 @@
-import { Component,Inject} from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import * as firebase from 'firebase'
 
 @Component({
@@ -16,63 +16,63 @@ import * as firebase from 'firebase'
                 <img src="{{image}}"/>
                 
                 `
-    
+
 })
 export class FileUploadComponents {
     image: string;
-    storage: firebase.storage.Storage 
+    storage: firebase.storage.Storage
     database: firebase.database.Database
-    snap:JSON
-  constructor() {
+    snap: JSON
+    constructor() {
         var config = {
-                apiKey: "AIzaSyDp5PfXL2nQWqrKumXCuYUQSgVpW8HX9_U",
-                authDomain: "tfsmean.firebaseapp.com",
-                databaseURL: "https://tfsmean.firebaseio.com",
-                projectId: "tfsmean",
-                storageBucket: "tfsmean.appspot.com",
-                messagingSenderId: "378897946454"
+            apiKey: "AIzaSyDp5PfXL2nQWqrKumXCuYUQSgVpW8HX9_U",
+            authDomain: "tfsmean.firebaseapp.com",
+            databaseURL: "https://tfsmean.firebaseio.com",
+            projectId: "tfsmean",
+            storageBucket: "tfsmean.appspot.com",
+            messagingSenderId: "378897946454"
         };
-        firebase.initializeApp(config); 
-        this.storage = firebase.storage();  
+        firebase.initializeApp(config);
+        this.storage = firebase.storage();
         this.database = firebase.database();
 
         var storageRef = this.storage.ref();
-        
-        var imgRef = storageRef.child('images/Koala.jpg');  
+
+        var imgRef = storageRef.child('images/Koala.jpg');
         imgRef.getDownloadURL().then((url: any) => {
 
             console.log('image URL :' + url);
             this.image = url
         });
-  }
-
-fileChange(event) {
-    let fileList: FileList = event.target.files;
-    for (var i = 0; i < fileList.length; i++) {
-        let file: File = fileList[i];
-        let formData:FormData = new FormData();
-        formData.append('uploadFile', file, file.name);
-        console.log('file :' + file.name);
-        console.log('file type:' + file.type);
-
-
-        var storageRef = this.storage.ref();
-        var imgRef = storageRef.child('images/' + file.name);
-        imgRef.put(file).then((snapshot) => {
-            console.log('Uploaded a file , adding datasbase entry :'); 
-            var metaData = {
-                "bucket": snapshot.metadata.bucket, "fullPath": snapshot.metadata.fullPath,
-                "name": snapshot.metadata.name, "size": snapshot.metadata.size,
-                "contentType": snapshot.metadata.contentType,
-                "downloadURLs":snapshot.metadata.downloadURLs[0]
-            }
-            console.log('meta data:' + metaData);
-            this.database.ref('images/'+snapshot.metadata.generation).set(metaData);
-        });
-    
-   
     }
-  }
+
+    fileChange(event) {
+        let fileList: FileList = event.target.files;
+        for (var i = 0; i < fileList.length; i++) {
+            let file: File = fileList[i];
+            let formData: FormData = new FormData();
+            formData.append('uploadFile', file, file.name);
+            console.log('file :' + file.name);
+            console.log('file type:' + file.type);
+
+
+            var storageRef = this.storage.ref();
+            var imgRef = storageRef.child('images/' + file.name);
+            imgRef.put(file).then((snapshot) => {
+                console.log('Uploaded a file , adding datasbase entry :');
+                var metaData = {
+                    "bucket": snapshot.metadata.bucket, "fullPath": snapshot.metadata.fullPath,
+                    "name": snapshot.metadata.name, "size": snapshot.metadata.size,
+                    "contentType": snapshot.metadata.contentType,
+                    "downloadURLs": snapshot.metadata.downloadURLs[0]
+                }
+                console.log('meta data:' + metaData);
+                this.database.ref('images/' + snapshot.metadata.generation).set(metaData);
+            });
+
+
+        }
+    }
 
 
 

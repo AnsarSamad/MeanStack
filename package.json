@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "debug": "node --debug-brk --inspect server.js"
+    "debug": "node --inspect server.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,7 @@
     "core-js": "^2.4.1",
     "debug": "~2.6.0",
     "ejs": "^2.5.5",
+    
     "express": "~4.14.1",
     "express-session": "^1.14.2",
     "jade": "~1.11.0",

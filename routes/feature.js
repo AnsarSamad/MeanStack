@@ -24,7 +24,7 @@ router.post('/',(req,res)=>{
         Feature.findById(id, function (err, feature) {
             if (err) return handleError(err);
                 console.log('feature found :'+JSON.stringify(feature));
-                if(mode == "insert"){
+                if(mode == "insert" && feature == null){ // confirm its a new object
                     var feature = new Feature();
                 }
                 feature.title=req.body.feature.title;

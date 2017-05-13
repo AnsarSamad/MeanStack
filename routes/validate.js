@@ -42,12 +42,11 @@ console.log(`am in validator ${email} ${password}`)
         return dbUtil.addLocalUser(email,password,isadmin);
     })
 
-    .then((useradded,user)=>{
-        console.log('is user added :'+useradded);
-        console.log('user :'+user);
-        res.json({success : useradded,"userID":user._id});           
+    .then((user)=>{
+        console.log('new user added:'+user);
+        res.json({success : true,"userID":user._id});                      
     },(usernotadded)=>{
-        console.log('user not added :'+usernotadded);
+        console.log('user not added ');
         res.json({success : usernotadded});      
     })
 

@@ -7,7 +7,7 @@ var userstorySchema = new Schema({
     descr:String,
     created:Date,
     modified:Date,
-    storypoint:Number,
+    storypoint:String,
     assignTo:String,
     sprint:String,
     area:String,
