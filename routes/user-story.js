@@ -2,6 +2,33 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var UserStory = require('../model/userstory');
+var Feature = require('../model/feature');
+
+
+router.get('/',(req,res,next)=>{  
+    console.log('get request for get all user stories') 
+    UserStory.find({}).exec((err,response)=>{
+        if(err){
+            console.log('Error occured');
+        }else{
+            res.json(response)
+        }
+    })
+})
+
+router.get('/:featureid', (req, res, next) => {
+    var featureid = req.params.featureid;
+    console.log('get request for get stories of Feature :' + featureid);
+    Feature.findById(featureid).select('userstories').populate('userstories').exec(function (err, userstory){
+        if (err) {
+            console.log('Error occured');
+        } else {
+            console.log('user story retrieved are :' + userstory.userstories);
+            res.json(userstory.userstories)
+        }
+    });
+})
+
 
 router.post('/', (req, res) => {
     console.log('got a Post request to add new user feature')

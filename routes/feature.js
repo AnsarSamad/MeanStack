@@ -3,9 +3,10 @@ var router = express.Router();
 var mongoose  =  require('mongoose');
 var Feature = require('../model/feature');
 
+
 router.get('/',(req,res,next)=>{  
     console.log('get request for get all features') 
-    Feature.find({}).populate('createdby').exec((err,response)=>{
+    Feature.find({}).exec((err,response)=>{
         if(err){
             console.log('Error occured');
         }else{

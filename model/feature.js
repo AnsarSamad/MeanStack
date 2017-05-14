@@ -9,7 +9,7 @@ var featureSchema = new Schema({
     created:Date,
     modified:Date,
     area:String,
-    userstories : [{ type: Schema.Types.ObjectId, ref: 'UserStory' }],
+    userstories : [{ type: Schema.Types.ObjectId, ref:'UserStory'}],
     createdby:{type:Schema.Types.ObjectId,ref:'User'}
 
 })

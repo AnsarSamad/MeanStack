@@ -6,30 +6,7 @@ import { Features } from '../model/feature'
 import { NgForm } from '@angular/forms';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewStoriesComponent } from './add-new-stories.component'
-
-@Component({
-    selector: 'addstories',
-    template: `
-    
-        <div class="modal-header">
-            <h4 class="modal-title">Hi there!</h4>
-            <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-            <p>Hello, {{name}}!</p>
-            </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close</button>
-        </div>
-    
-    `
-})
-export class StoryComponents {
-    @Input() name;
-    constructor(public activeModal: NgbActiveModal) { }
-}
+import { StoryComponent } from './stories.component'
 
 @Component({
     moduleId: module.id,
@@ -80,7 +57,7 @@ export class StoryComponents {
                                 <td>{{feature.descr}}</td>
                                 <td>{{feature.area}}</td>
                                 <td *ngIf ="feature.userstories == null" >0</td>
-                                <td *ngIf ="feature.userstories != null" > {{feature.userstories.length}}</td>
+                                <td *ngIf ="feature.userstories != null" ><a href="javscript:void(0);" (click)="open(feature._id)" > {{feature.userstories.length}} </a> </td>
                                 <td><a class='btn btn-info btn-xs'  (click)="editFeature(feature._id)"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a (click)="deleteFeature(feature)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
                             </tr>
                     </tbody>
@@ -111,6 +88,7 @@ export class FeatureComponent extends ComponentAction {
         this.featureService.getFeatures()
             .subscribe(result => {
                 this.features = result;
+                console.log('features :' + JSON.stringify(this.features));
             })
     }
 
@@ -162,9 +140,14 @@ export class FeatureComponent extends ComponentAction {
         }
     }
 
-    open() {
-        const modalRef = this.modalService.open(StoryComponents);
-        modalRef.componentInstance.name = 'World';
+    open(featureId) {
+        console.log('opening feature id:' + featureId);
+        const modalRef = this.modalService.open(StoryComponent);
+        modalRef.componentInstance.featureId = featureId;
+         this.featureService.getStoriesByFeature(featureId)
+            .subscribe(result => {
+                modalRef.componentInstance.userStories = result;
+            })        
     }
 
     addstories(featureId) {

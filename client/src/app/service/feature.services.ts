@@ -19,5 +19,10 @@ export class FeatureServices {
         return this.http.post('/api/userstory', { "mode": mode, "userstory": stories })
             .map(result => result.json());
     }
+    getStoriesByFeature(featureId: string) {
+        console.log('story service featureId :' + featureId);
+        return this.http.get('/api/userstory/' + featureId)
+            .map(result => result.json());
+    }
 
 }
