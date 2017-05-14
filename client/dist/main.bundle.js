@@ -934,7 +934,9 @@ var FeatureComponent = (function (_super) {
     };
     FeatureComponent.prototype.processFeature = function (form) {
         var _this = this;
-        this.selectedFeature.createdby = _super.prototype.getMember.call(this).memberId;
+        if (_super.prototype.getMember.call(this).memberId != "") {
+            this.selectedFeature.createdby = _super.prototype.getMember.call(this).memberId;
+        }
         this.selectedFeature.created = new Date();
         this.selectedFeature.modified = new Date();
         this.featureService.processFeature(this.mode, this.selectedFeature)
@@ -942,6 +944,10 @@ var FeatureComponent = (function (_super) {
             // push to array only if insert mode  , otherwise it will make duplicates since we returning features from server for both insert and update (using feature.save())
             if (_this.mode == "insert") {
                 _this.features.push(result);
+                _this.alertObj = { type: "success", message: "Feature added Succesfully ." };
+            }
+            else if (_this.mode == "update") {
+                _this.alertObj = { type: "success", message: "Feature Updated Succesfully ." };
             }
         });
     };

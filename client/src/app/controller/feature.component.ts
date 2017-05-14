@@ -101,7 +101,9 @@ export class FeatureComponent extends ComponentAction {
         this.mode = "start";
     }
     processFeature(form: NgForm) {
-        this.selectedFeature.createdby = super.getMember().memberId;
+        if (super.getMember().memberId != "") {
+            this.selectedFeature.createdby = super.getMember().memberId;
+        }
         this.selectedFeature.created = new Date();
         this.selectedFeature.modified = new Date();
 
@@ -110,6 +112,11 @@ export class FeatureComponent extends ComponentAction {
                 // push to array only if insert mode  , otherwise it will make duplicates since we returning features from server for both insert and update (using feature.save())
                 if (this.mode == "insert") {
                     this.features.push(result);
+                    this.alertObj = { type: "success", message: "Feature added Succesfully ." };
+                    
+                } else if (this.mode == "update") {
+                    this.alertObj = { type: "success", message: "Feature Updated Succesfully ." };
+                    
                 }
 
             })
@@ -144,10 +151,10 @@ export class FeatureComponent extends ComponentAction {
         console.log('opening feature id:' + featureId);
         const modalRef = this.modalService.open(StoryComponent);
         modalRef.componentInstance.featureId = featureId;
-         this.featureService.getStoriesByFeature(featureId)
+        this.featureService.getStoriesByFeature(featureId)
             .subscribe(result => {
                 modalRef.componentInstance.userStories = result;
-            })        
+            })
     }
 
     addstories(featureId) {
