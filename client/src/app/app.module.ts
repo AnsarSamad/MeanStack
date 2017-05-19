@@ -24,8 +24,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewStoriesComponent } from './controller/add-new-stories.component';
 import { AlertsComponent } from './controller/alerts.component'
 import { StoryComponent } from './controller/stories.component'
-import {StoryService} from './service/story.service'
-
+import { StoryService } from './service/story.service'
+import { LoginRouteGuard } from '../app/base/login.route.guards';
+import { LoginService } from '../app/service/login.service'
 
 //index routing , redirect to login for the blank request
 const indexRoutes: Route = {
@@ -45,6 +46,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {
     path: 'dash', component: DashBoardcomponent,
+    canActivate: [LoginRouteGuard],
     children: [
       {   // shows feature   as default
         path: '',
@@ -112,7 +114,7 @@ var firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     NgbModule.forRoot()
   ],
-  providers: [TaskService, EventService, AddEventService, AddTaskService, FeatureServices , StoryService],
+  providers: [LoginService, LoginRouteGuard, TaskService, EventService, AddEventService, AddTaskService, FeatureServices, StoryService],
   declarations: [
     AppComponent,
     LoginComponent,

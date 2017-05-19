@@ -56,7 +56,7 @@ import { StoryComponent } from './stories.component'
                                 <td><a  href="javascript:void(0);" (click)=addstories([feature._id])>{{feature.title}}</a></td>
                                 <td>{{feature.descr}}</td>
                                 <td>{{feature.area}}</td>
-                                <td *ngIf ="feature.userstories == null" >0</td>
+                                <td *ngIf ="feature.userstories == null" ></td>
                                 <td *ngIf ="feature.userstories != null" ><a href="javscript:void(0);" (click)="open(feature._id)" > {{feature.userstories.length}} </a> </td>
                                 <td><a class='btn btn-info btn-xs'  (click)="editFeature(feature._id)"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a (click)="deleteFeature(feature)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
                             </tr>

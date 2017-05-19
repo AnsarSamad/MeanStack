@@ -14,8 +14,8 @@ module.exports = function (passport) {
         function (username, password, callback) {
             User.findOne({ local: { email: username, password: password } }, function (err, response) {
                 var isadmine = false;
-                if (err || response == null) {
-                    var obj = { isvalid: false, isadmin: isadmine, userID: response._id }
+                if ((err != null && err) || response == null) {
+                    var obj = { isvalid: false }
                     return callback(null, obj); // user not exist
                 } else {
                     //identify weather this user is a admin user or not                

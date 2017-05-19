@@ -1,13 +1,14 @@
-import {Component} from '@angular/core'
-import {NgForm} from '@angular/forms'
-import {Http} from '@angular/http'
-import {Router} from '@angular/router'
-import {ComponentAction} from '../base/Component.action'
-import {Member} from '../base/member'
+import { Component } from '@angular/core'
+import { NgForm } from '@angular/forms'
+import { Http } from '@angular/http'
+import { Router } from '@angular/router'
+import { ComponentAction } from '../base/Component.action'
+import { Member } from '../base/member'
+import { LoginService } from '../service/login.service'
 @Component({
-    moduleId:module.id,
-    selector:'login',
-    template:`
+    moduleId: module.id,
+    selector: 'login',
+    template: `
     
         <link href="assets/css/signin.css" rel="stylesheet">
        
@@ -36,26 +37,26 @@ import {Member} from '../base/member'
     `
 })
 
-export class LoginComponent extends ComponentAction{
-    isloggedIn:boolean = true;
-    
-    constructor(private http :Http , private router:Router){
+export class LoginComponent extends ComponentAction {
+    isloggedIn: boolean = true;
+
+    constructor(private http: Http, private router: Router, private loginService: LoginService) {
         super();
     }
 
 
 
-    validate(ngform:NgForm){
-        var user = ngform.value.inputEmail ;
-        this.http.post('/api/validate/login', {email:ngform.value.inputEmail,password:ngform.value.inputPassword})
-        .map(result => result.json())
-        .subscribe((result) => {
-            this.isloggedIn = result.isvalid;
-            let member = new Member(result.userID, user,result.isadmine);
-            super.setMember(member);
-            if(this.isloggedIn){
-                this.router.navigate(['./dash'])
-            }
-        })
+    validate(ngform: NgForm) {
+        var user = ngform.value.inputEmail;
+        this.loginService.loging(ngform.value.inputEmail, ngform.value.inputPassword)
+            .subscribe((result) => {
+                this.isloggedIn = result.isvalid;
+                if (this.isloggedIn) {
+                    let member = new Member(result.userID, user, result.isadmine);
+                    super.setMember(member);
+                    this.loginService.setLoginStatus(true);
+                    this.router.navigate(['./dash'])
+                }
+            })
     }
 }

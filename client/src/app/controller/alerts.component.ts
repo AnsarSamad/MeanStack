@@ -3,16 +3,28 @@ import { Component, Input, OnInit } from '@angular/core'
     selector: 'alerts',
     template: `
     
-        <div class="alert alert-success" role="alert" *ngIf="alert.type == 'success' ">
+        <div class="alert alert-success alert-dismissible fade show" role="alert" *ngIf="alert.type == 'success' ">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+           </button>
             <strong>{{alert.message}}</strong> 
         </div>
-        <div class="alert alert-info" role="alert"  *ngIf="alert.type == 'info' ">
+        <div class="alert alert-info alert-dismissible fade show" role="alert"  *ngIf="alert.type == 'info' ">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+           </button>
             <strong>{{alert.message}}</strong> 
         </div>
-        <div class="alert alert-warning" role="alert" *ngIf="alert.type == 'warning' ">
+        <div class="alert alert-warning alert-dismissible fade show" role="alert" *ngIf="alert.type == 'warning' ">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+           </button>
             <strong>{{alert.message}}</strong> 
         </div>
-        <div class="alert alert-danger" role="alert" *ngIf="alert.type == 'error' ">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert" *ngIf="alert.type == 'error' ">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+           </button>
             <strong>{{alert.message}}</strong> 
         </div>
             
@@ -25,6 +37,6 @@ export class AlertsComponent implements OnInit {
     showAlerts: boolean = false;
     messageArray: Array<string> = [""];
     ngOnInit() {
-        
+
     }
 }

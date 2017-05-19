@@ -59,6 +59,7 @@ export class DashBoardcomponent extends ComponentAction {
     constructor(){
         super();
         this.user = super.getMember().membername;
+        console.log('dash constructor')
     }
 
 }
