@@ -19,7 +19,6 @@ import { FeatureComponent } from '../app/controller/feature.component'
 import { AddTaskService } from '../app/task/addtask.service'
 import { FeatureServices } from '../app/service/feature.services'
 import { FileUploadComponents } from '../app/controller/fileUpload.component'
-import { AngularFireModule } from 'angularfire2'
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AddNewStoriesComponent } from './controller/add-new-stories.component';
 import { AlertsComponent } from './controller/alerts.component'
@@ -96,14 +95,7 @@ const routes: Routes = [
 ];
 
 export const routing = RouterModule.forRoot(routes);
-var firebaseConfig = {
-  apiKey: "AIzaSyDp5PfXL2nQWqrKumXCuYUQSgVpW8HX9_U",
-  authDomain: "tfsmean.firebaseapp.com",
-  databaseURL: "https://tfsmean.firebaseio.com",
-  projectId: "tfsmean",
-  storageBucket: "tfsmean.appspot.com",
-  messagingSenderId: "378897946454"
-};
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -111,7 +103,6 @@ var firebaseConfig = {
     ReactiveFormsModule,
     HttpModule,
     routing,
-    AngularFireModule.initializeApp(firebaseConfig),
     NgbModule.forRoot()
   ],
   providers: [LoginService, LoginRouteGuard, TaskService, EventService, AddEventService, AddTaskService, FeatureServices, StoryService],

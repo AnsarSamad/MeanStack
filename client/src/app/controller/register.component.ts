@@ -4,7 +4,7 @@ import { Http } from '@angular/http'
 import { Observable } from 'rxjs/Observable';
 import { ComponentAction } from '../base/Component.action'
 import { Member } from '../base/member'
-import { firebaseConfig } from '../base/firebaseConfig'
+import { FirebaseConfig } from '../base/firebaseConfig'
 @Component({
     moduleId: module.id,
     selector: 'signup',
@@ -33,36 +33,42 @@ import { firebaseConfig } from '../base/firebaseConfig'
     `
 })
 
-
-
-
 export class RegisterComponent extends ComponentAction {
-
     email: string;
     password: string
     isSuccess: boolean = true;
+    firebase = FirebaseConfig.initialize();
     constructor(private http: Http, private router: Router) {
         super();
     }
     register() {
-        this.http.post('api/validate/register/', { email: this.email, password: this.password })
-            .subscribe(
-            (response) => {
-                this.isSuccess = response.json().success;
-                if (this.isSuccess) {
-                    let member = new Member(this.email, "false", response.json().userID);//isadmine:false
-                    super.setMember(member);
-                    // add user to firebase
-                    let firebase = new firebaseConfig();
-                    const userObj = { "userId": response.json().userID, "email": this.email }
-                    firebase.addToDatabase('user', response.json().userID, userObj);
-                    firebase.addUser(this.email, this.password).catch(function (error) {
-                        var errorMessage = error.message;
-                        alert(errorMessage);
-                    });
+        // steps
+        // add authentication user to firebase
+        // if success only do the rest else return
+        // if success add user to server MongoDb 
+        // if success the above step setup user add user to firebase database
+        // else delete user from firebase
 
-                    this.router.navigate(['./dash']);
-                }
+        this.firebase.addUser(this.email, this.password)
+            .then((firebaseAuthenticated) => {
+                this.http.post('api/validate/register/', { email: this.email, password: this.password })
+                    .subscribe(
+                    (response) => {
+                        this.isSuccess = response.json().success;
+                        if (this.isSuccess) {
+                            const userObj = { "userId": response.json().userID, "email": this.email }
+                            this.firebase.addToDatabase('user', response.json().userID, userObj);
+                            let member = new Member(this.email, "false", response.json().userID);//isadmine:false
+                            super.setMember(member);
+                            this.router.navigate(['./dash']);
+                        } else {
+                            this.firebase.deleteUser();                            
+                        }
+                    });
+            })
+            .catch((error) => {
+                var errorMessage = error.message;
+                alert(errorMessage);
             });
 
     }
