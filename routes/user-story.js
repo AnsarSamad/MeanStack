@@ -19,12 +19,12 @@ router.get('/',(req,res,next)=>{
 router.get('/:featureid', (req, res, next) => {
     var featureid = req.params.featureid;
     console.log('get request for get stories of Feature :' + featureid);
-    Feature.findById(featureid).select('userstories').populate('userstories').exec(function (err, userstory){
+    Feature.findById(featureid).select('userstory').populate('userstory').exec(function (err, userstory){
         if (err) {
             console.log('Error occured');
         } else {
-            console.log('user story retrieved are :' + userstory.userstories);
-            res.json(userstory.userstories)
+            console.log('user story retrieved are :' + userstory.userstory);
+            res.json(userstory.userstory)
         }
     });
 })

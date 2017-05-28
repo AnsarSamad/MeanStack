@@ -39,12 +39,9 @@ import { LoginService } from '../service/login.service'
 
 export class LoginComponent extends ComponentAction {
     isloggedIn: boolean = true;
-
     constructor(private http: Http, private router: Router, private loginService: LoginService) {
         super();
     }
-
-
 
     validate(ngform: NgForm) {
         var user = ngform.value.inputEmail;

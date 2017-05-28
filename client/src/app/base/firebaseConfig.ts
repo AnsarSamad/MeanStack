@@ -13,7 +13,7 @@ class FirebaseConfig {
     private constructor() {
         firebase.initializeApp(this.config);
     }
-    static initialize():FirebaseConfig {
+    static initialize(): FirebaseConfig {
         if (this.firebaseConfig == null) {
             this.firebaseConfig = new FirebaseConfig();
         }
@@ -31,6 +31,9 @@ class FirebaseConfig {
     deleteUser() {
         var user = firebase.auth().currentUser;
         return user.delete();
+    }
+    downloadImage(name: string) {
+        return firebase.storage().ref().child(name).getDownloadURL();
     }
 }
 

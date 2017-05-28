@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { StoryService } from '../service/story.service'
 import { UserStories } from '../model/userStory'
@@ -6,8 +6,7 @@ import { UserStories } from '../model/userStory'
     selector: 'stories',
     template: `
             
-            <div class="modal-header">
-                <h4 class="modal-title">Hi there!</h4>
+            <div class="modal-header" *ngIf="isModel">
                 <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -41,19 +40,35 @@ import { UserStories } from '../model/userStory'
 
 
             </div>
-            <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close</button>
-        </div>
+            <div class="modal-footer" *ngIf="isModel">
+                <button type="button" class="btn btn-secondary" (click)="activeModal.close('Close click')">Close</button>
+            </div>
     
     `
 })
 
-export class StoryComponent {
+export class StoryComponent implements OnInit {
     @Input() featureId: string;
     userStories: UserStories[];
+    isModel: boolean;
     constructor(public activeModal: NgbActiveModal, private storyService: StoryService) {
-
+        // the values set by ngbmodel service is not accessable in constructor
+        // accessable only in OnInit()
     }
-
+    ngOnInit() {
+        //if model show only feature specific user stories
+        // else get all user stories
+        if (this.isModel) {
+            this.storyService.getStoriesByFeature(this.featureId)
+                .subscribe((result) => {
+                    this.userStories = result;
+                })
+        } else {
+            this.storyService.getStories()
+                .subscribe((result) => {
+                    this.userStories = result;
+                })
+        }
+    }
 
 }

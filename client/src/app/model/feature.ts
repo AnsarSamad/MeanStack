@@ -7,7 +7,7 @@ export class Features{
     created:Date
     modified:Date
     area:String
-    userstories: Array<UserStories> = [];
+    userstory : Array<UserStories> = [];
     createdby  : String
 
 

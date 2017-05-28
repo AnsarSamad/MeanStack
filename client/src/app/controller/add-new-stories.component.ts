@@ -11,7 +11,7 @@ import { systemConstant } from '../base/systemConstant'
   template: `
   
   <h3>Add Stories for Feature {{selectedFeature.title}}</h3>
-  <h4>No of Stories added to this Feature : {{selectedFeature.userstories.length }}</h4>
+  <h4>No of Stories added to this Feature : {{selectedFeature.userstory.length }}</h4>
 
 
  <form  #userStoryForm="ngForm" (ngSubmit)="addUserStory(userStoryForm)">
@@ -57,7 +57,7 @@ export class AddNewStoriesComponent implements OnInit {
   addUserStory(form: NgForm) {
     this.featureService.processUserStories(systemConstant.INSERT, this.userStory)
       .subscribe(result => {
-        this.selectedFeature.userstories.push(result._id);
+        this.selectedFeature.userstory.push(result._id);
         this.featureService.processFeature(systemConstant.INSERT, this.selectedFeature)
           .subscribe(result => {
             //this.onAlertAdded.emit({type: "success",message:"user_story_added"});

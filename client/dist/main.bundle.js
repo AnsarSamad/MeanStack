@@ -4,9 +4,58 @@ webpackJsonp([1,4],{
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(300);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_firebase__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseConfig; });
+
+var FirebaseConfig = (function () {
+    function FirebaseConfig() {
+        this.config = {
+            apiKey: "AIzaSyDp5PfXL2nQWqrKumXCuYUQSgVpW8HX9_U",
+            authDomain: "tfsmean.firebaseapp.com",
+            databaseURL: "https://tfsmean.firebaseio.com",
+            projectId: "tfsmean",
+            storageBucket: "tfsmean.appspot.com",
+            messagingSenderId: "378897946454"
+        };
+        __WEBPACK_IMPORTED_MODULE_0_firebase__["initializeApp"](this.config);
+    }
+    FirebaseConfig.initialize = function () {
+        if (this.firebaseConfig == null) {
+            this.firebaseConfig = new FirebaseConfig();
+        }
+        return this.firebaseConfig;
+    };
+    FirebaseConfig.prototype.addUser = function (email, password) {
+        return __WEBPACK_IMPORTED_MODULE_0_firebase__["auth"]().createUserWithEmailAndPassword(email, password);
+    };
+    FirebaseConfig.prototype.addToDatabase = function (child, id, obj) {
+        return __WEBPACK_IMPORTED_MODULE_0_firebase__["database"]().ref(child + '/' + id).set(obj);
+    };
+    FirebaseConfig.prototype.addToStorage = function (child, fileName, file) {
+        return __WEBPACK_IMPORTED_MODULE_0_firebase__["storage"]().ref(child + '/' + fileName).put(file);
+    };
+    FirebaseConfig.prototype.deleteUser = function () {
+        var user = __WEBPACK_IMPORTED_MODULE_0_firebase__["auth"]().currentUser;
+        return user.delete();
+    };
+    FirebaseConfig.prototype.downloadImage = function (name) {
+        return __WEBPACK_IMPORTED_MODULE_0_firebase__["storage"]().ref().child(name).getDownloadURL();
+    };
+    return FirebaseConfig;
+}());
+
+//# sourceMappingURL=firebaseConfig.js.map
+
+/***/ }),
+
+/***/ 160:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_story_service__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__service_story_service__ = __webpack_require__(164);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StoryComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -24,7 +73,26 @@ var StoryComponent = (function () {
     function StoryComponent(activeModal, storyService) {
         this.activeModal = activeModal;
         this.storyService = storyService;
+        // the values set by ngbmodel service is not accessable in constructor
+        // accessable only in OnInit()
     }
+    StoryComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        //if model show only feature specific user stories
+        // else get all user stories
+        if (this.isModel) {
+            this.storyService.getStoriesByFeature(this.featureId)
+                .subscribe(function (result) {
+                _this.userStories = result;
+            });
+        }
+        else {
+            this.storyService.getStories()
+                .subscribe(function (result) {
+                _this.userStories = result;
+            });
+        }
+    };
     return StoryComponent;
 }());
 __decorate([
@@ -34,7 +102,7 @@ __decorate([
 StoryComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Component */])({
         selector: 'stories',
-        template: "\n            \n            <div class=\"modal-header\">\n                <h4 class=\"modal-title\">Hi there!</h4>\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n                    <span aria-hidden=\"true\">&times;</span>\n                </button>\n            </div>\n            <div class=\"modal-body\">\n            <table class=\"table table-hover table-responsive table-bordered\" *ngIf=\"mode != 'addStories' \" >\n                        <thead>\n                            <tr>\n                                <th >Title</th>\n                                <th >Descr</th>\n                                <th >Storypoint</th>\n                                <th >Area</th>\n                                <th >Sprint</th>\n                                <th >Tasks</th>\n                            </tr>\n                        </thead>\n                        <tbody>\n                            <tr *ngFor=\"let story of userStories\">\n                                <td><a>{{story.title}}</a></td>\n                                <td>{{story.descr}}</td>\n                                <td>{{story.storypoint}}</td>\n                                <td>{{story.area}}</td>\n                                <td>{{story.sprint}}</td>\n                                <td *ngIf =\"story.task == null\" >0</td>\n                                <td *ngIf =\"story.task != null\" > {{story.task.length}} </td>\n                                \n                                \n                            </tr>\n                    </tbody>\n                </table>\n\n\n            </div>\n            <div class=\"modal-footer\">\n            <button type=\"button\" class=\"btn btn-secondary\" (click)=\"activeModal.close('Close click')\">Close</button>\n        </div>\n    \n    "
+        template: "\n            \n            <div class=\"modal-header\" *ngIf=\"isModel\">\n                <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"activeModal.dismiss('Cross click')\">\n                    <span aria-hidden=\"true\">&times;</span>\n                </button>\n            </div>\n            <div class=\"modal-body\">\n            <table class=\"table table-hover table-responsive table-bordered\" *ngIf=\"mode != 'addStories' \" >\n                        <thead>\n                            <tr>\n                                <th >Title</th>\n                                <th >Descr</th>\n                                <th >Storypoint</th>\n                                <th >Area</th>\n                                <th >Sprint</th>\n                                <th >Tasks</th>\n                            </tr>\n                        </thead>\n                        <tbody>\n                            <tr *ngFor=\"let story of userStories\">\n                                <td><a>{{story.title}}</a></td>\n                                <td>{{story.descr}}</td>\n                                <td>{{story.storypoint}}</td>\n                                <td>{{story.area}}</td>\n                                <td>{{story.sprint}}</td>\n                                <td *ngIf =\"story.task == null\" >0</td>\n                                <td *ngIf =\"story.task != null\" > {{story.task.length}} </td>\n                                \n                                \n                            </tr>\n                    </tbody>\n                </table>\n\n\n            </div>\n            <div class=\"modal-footer\" *ngIf=\"isModel\">\n                <button type=\"button\" class=\"btn btn-secondary\" (click)=\"activeModal.close('Close click')\">Close</button>\n            </div>\n    \n    "
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbActiveModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__ng_bootstrap_ng_bootstrap__["b" /* NgbActiveModal */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__service_story_service__["a" /* StoryService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__service_story_service__["a" /* StoryService */]) === "function" && _b || Object])
 ], StoryComponent);
@@ -44,14 +112,14 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 160:
+/***/ 161:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Features; });
 var Features = (function () {
     function Features(title, desc) {
-        this.userstories = [];
+        this.userstory = [];
         this.title = title;
         this.descr = desc;
     }
@@ -62,7 +130,7 @@ var Features = (function () {
 
 /***/ }),
 
-/***/ 161:
+/***/ 162:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -108,7 +176,7 @@ var _a;
 
 /***/ }),
 
-/***/ 162:
+/***/ 163:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -146,7 +214,7 @@ var _a;
 
 /***/ }),
 
-/***/ 163:
+/***/ 164:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -189,7 +257,7 @@ var _a;
 
 /***/ }),
 
-/***/ 164:
+/***/ 165:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -226,7 +294,7 @@ var _a;
 
 /***/ }),
 
-/***/ 165:
+/***/ 166:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -337,31 +405,31 @@ AppComponent = __decorate([
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_task_task_service__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_task_task_component__ = __webpack_require__(244);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app_task_task_service__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_task_task_component__ = __webpack_require__(243);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_component__ = __webpack_require__(227);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__angular_forms__ = __webpack_require__(24);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__angular_http__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__angular_router__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__task_addtask_component__ = __webpack_require__(243);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_controller_event_component__ = __webpack_require__(236);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_service_event_service__ = __webpack_require__(162);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__app_controller_addevent_component__ = __webpack_require__(233);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_service_addevent_service__ = __webpack_require__(161);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__app_controller_weather_component__ = __webpack_require__(241);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__app_controller_login_component__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__app_controller_register_component__ = __webpack_require__(240);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__app_controller_dashboard_component__ = __webpack_require__(235);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__app_controller_feature_component__ = __webpack_require__(237);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__app_task_addtask_service__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__task_addtask_component__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_controller_event_component__ = __webpack_require__(235);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__app_service_event_service__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__app_controller_addevent_component__ = __webpack_require__(232);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_service_addevent_service__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__app_controller_weather_component__ = __webpack_require__(240);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__app_controller_login_component__ = __webpack_require__(238);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__app_controller_register_component__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__app_controller_dashboard_component__ = __webpack_require__(234);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__app_controller_feature_component__ = __webpack_require__(236);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__app_task_addtask_service__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__app_service_feature_services__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__app_controller_fileUpload_component__ = __webpack_require__(238);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ng_bootstrap_ng_bootstrap__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__controller_add_new_stories_component__ = __webpack_require__(232);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__controller_alerts_component__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__controller_stories_component__ = __webpack_require__(159);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__service_story_service__ = __webpack_require__(163);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__app_base_login_route_guards__ = __webpack_require__(230);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__app_controller_fileUpload_component__ = __webpack_require__(237);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__ng_bootstrap_ng_bootstrap__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__controller_add_new_stories_component__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__controller_alerts_component__ = __webpack_require__(233);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__controller_stories_component__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__service_story_service__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__app_base_login_route_guards__ = __webpack_require__(229);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__app_service_login_service__ = __webpack_require__(86);
 /* unused harmony export routing */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
@@ -371,6 +439,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -455,7 +524,11 @@ var routes = [
             {
                 path: 'uploads',
                 component: __WEBPACK_IMPORTED_MODULE_20__app_controller_fileUpload_component__["a" /* FileUploadComponents */],
-            }
+            },
+            {
+                path: 'stories',
+                component: __WEBPACK_IMPORTED_MODULE_24__controller_stories_component__["a" /* StoryComponent */]
+            },
         ]
     }
 ];
@@ -475,7 +548,17 @@ AppModule = __decorate([
             routing,
             __WEBPACK_IMPORTED_MODULE_21__ng_bootstrap_ng_bootstrap__["a" /* NgbModule */].forRoot()
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_27__app_service_login_service__["a" /* LoginService */], __WEBPACK_IMPORTED_MODULE_26__app_base_login_route_guards__["a" /* LoginRouteGuard */], __WEBPACK_IMPORTED_MODULE_2__app_task_task_service__["a" /* TaskService */], __WEBPACK_IMPORTED_MODULE_10__app_service_event_service__["a" /* EventService */], __WEBPACK_IMPORTED_MODULE_12__app_service_addevent_service__["a" /* AddEventService */], __WEBPACK_IMPORTED_MODULE_18__app_task_addtask_service__["a" /* AddTaskService */], __WEBPACK_IMPORTED_MODULE_19__app_service_feature_services__["a" /* FeatureServices */], __WEBPACK_IMPORTED_MODULE_25__service_story_service__["a" /* StoryService */]],
+        providers: [
+            __WEBPACK_IMPORTED_MODULE_27__app_service_login_service__["a" /* LoginService */],
+            __WEBPACK_IMPORTED_MODULE_26__app_base_login_route_guards__["a" /* LoginRouteGuard */],
+            __WEBPACK_IMPORTED_MODULE_2__app_task_task_service__["a" /* TaskService */],
+            __WEBPACK_IMPORTED_MODULE_10__app_service_event_service__["a" /* EventService */],
+            __WEBPACK_IMPORTED_MODULE_12__app_service_addevent_service__["a" /* AddEventService */],
+            __WEBPACK_IMPORTED_MODULE_18__app_task_addtask_service__["a" /* AddTaskService */],
+            __WEBPACK_IMPORTED_MODULE_19__app_service_feature_services__["a" /* FeatureServices */],
+            __WEBPACK_IMPORTED_MODULE_25__service_story_service__["a" /* StoryService */],
+            __WEBPACK_IMPORTED_MODULE_21__ng_bootstrap_ng_bootstrap__["b" /* NgbActiveModal */]
+        ],
         declarations: [
             __WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */],
             __WEBPACK_IMPORTED_MODULE_14__app_controller_login_component__["a" /* LoginComponent */],
@@ -504,52 +587,6 @@ AppModule = __decorate([
 /***/ }),
 
 /***/ 229:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_firebase__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FirebaseConfig; });
-
-var FirebaseConfig = (function () {
-    function FirebaseConfig() {
-        this.config = {
-            apiKey: "AIzaSyDp5PfXL2nQWqrKumXCuYUQSgVpW8HX9_U",
-            authDomain: "tfsmean.firebaseapp.com",
-            databaseURL: "https://tfsmean.firebaseio.com",
-            projectId: "tfsmean",
-            storageBucket: "tfsmean.appspot.com",
-            messagingSenderId: "378897946454"
-        };
-        __WEBPACK_IMPORTED_MODULE_0_firebase__["initializeApp"](this.config);
-    }
-    FirebaseConfig.initialize = function () {
-        if (this.firebaseConfig == null) {
-            this.firebaseConfig = new FirebaseConfig();
-        }
-        return this.firebaseConfig;
-    };
-    FirebaseConfig.prototype.addUser = function (email, password) {
-        return __WEBPACK_IMPORTED_MODULE_0_firebase__["auth"]().createUserWithEmailAndPassword(email, password);
-    };
-    FirebaseConfig.prototype.addToDatabase = function (child, id, obj) {
-        return __WEBPACK_IMPORTED_MODULE_0_firebase__["database"]().ref(child + '/' + id).set(obj);
-    };
-    FirebaseConfig.prototype.addToStorage = function (child, fileName, file) {
-        return __WEBPACK_IMPORTED_MODULE_0_firebase__["storage"]().ref(child + '/' + fileName).put(file);
-    };
-    FirebaseConfig.prototype.deleteUser = function () {
-        var user = __WEBPACK_IMPORTED_MODULE_0_firebase__["auth"]().currentUser;
-        return user.delete();
-    };
-    return FirebaseConfig;
-}());
-
-//# sourceMappingURL=firebaseConfig.js.map
-
-/***/ }),
-
-/***/ 230:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -594,7 +631,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 231:
+/***/ 230:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -611,15 +648,15 @@ systemConstant.DELETE = "delete";
 
 /***/ }),
 
-/***/ 232:
+/***/ 231:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_feature__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_userStory__ = __webpack_require__(242);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__model_feature__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__model_userStory__ = __webpack_require__(241);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__service_feature_services__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__base_systemConstant__ = __webpack_require__(231);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__base_systemConstant__ = __webpack_require__(230);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddNewStoriesComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -647,7 +684,7 @@ var AddNewStoriesComponent = (function () {
         var _this = this;
         this.featureService.processUserStories(__WEBPACK_IMPORTED_MODULE_4__base_systemConstant__["a" /* systemConstant */].INSERT, this.userStory)
             .subscribe(function (result) {
-            _this.selectedFeature.userstories.push(result._id);
+            _this.selectedFeature.userstory.push(result._id);
             _this.featureService.processFeature(__WEBPACK_IMPORTED_MODULE_4__base_systemConstant__["a" /* systemConstant */].INSERT, _this.selectedFeature)
                 .subscribe(function (result) {
                 //this.onAlertAdded.emit({type: "success",message:"user_story_added"});
@@ -669,7 +706,7 @@ __decorate([
 AddNewStoriesComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Component */])({
         selector: 'app-add-new-stories',
-        template: "\n  \n  <h3>Add Stories for Feature {{selectedFeature.title}}</h3>\n  <h4>No of Stories added to this Feature : {{selectedFeature.userstories.length }}</h4>\n\n\n <form  #userStoryForm=\"ngForm\" (ngSubmit)=\"addUserStory(userStoryForm)\">\n  <div class=\"form-group\">\n    <label for=\"title\">User Story Title</label>\n    <input type=\"text\" class=\"form-control\" id=\"title\" name=\"title\"  [(ngModel)]=userStory.title>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"descr\">User Story Desc</label>\n    <input type=\"text\" class=\"form-control\" id=\"descr\" name=\"descr\"  [(ngModel)]=userStory.descr>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"area\">User Story point</label>\n    <input type=\"text\" class=\"form-control\" id=\"storypoint\" name=\"storypoint\"  [(ngModel)]=userStory.storypoint>\n  </div> \n  <div class=\"form-group\">\n    <label for=\"area\">User Story Sprint</label>\n    <input type=\"text\" class=\"form-control\" id=\"sprint\" name=\"sprint\"  [(ngModel)]=userStory.sprint>\n  </div>                   \n  <div class=\"form-group\">\n    <label for=\"area\">User Story Area</label>\n    <input type=\"text\" class=\"form-control\" id=\"area\" name=\"area\"  [(ngModel)]=userStory.area>\n  </div> \n  <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n             \n</form>\n  \n  "
+        template: "\n  \n  <h3>Add Stories for Feature {{selectedFeature.title}}</h3>\n  <h4>No of Stories added to this Feature : {{selectedFeature.userstory.length }}</h4>\n\n\n <form  #userStoryForm=\"ngForm\" (ngSubmit)=\"addUserStory(userStoryForm)\">\n  <div class=\"form-group\">\n    <label for=\"title\">User Story Title</label>\n    <input type=\"text\" class=\"form-control\" id=\"title\" name=\"title\"  [(ngModel)]=userStory.title>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"descr\">User Story Desc</label>\n    <input type=\"text\" class=\"form-control\" id=\"descr\" name=\"descr\"  [(ngModel)]=userStory.descr>\n  </div>\n  <div class=\"form-group\">\n    <label for=\"area\">User Story point</label>\n    <input type=\"text\" class=\"form-control\" id=\"storypoint\" name=\"storypoint\"  [(ngModel)]=userStory.storypoint>\n  </div> \n  <div class=\"form-group\">\n    <label for=\"area\">User Story Sprint</label>\n    <input type=\"text\" class=\"form-control\" id=\"sprint\" name=\"sprint\"  [(ngModel)]=userStory.sprint>\n  </div>                   \n  <div class=\"form-group\">\n    <label for=\"area\">User Story Area</label>\n    <input type=\"text\" class=\"form-control\" id=\"area\" name=\"area\"  [(ngModel)]=userStory.area>\n  </div> \n  <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n             \n</form>\n  \n  "
     }),
     __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__service_feature_services__["a" /* FeatureServices */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__service_feature_services__["a" /* FeatureServices */]) === "function" && _b || Object])
 ], AddNewStoriesComponent);
@@ -679,12 +716,12 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 233:
+/***/ 232:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_addevent_service__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_addevent_service__ = __webpack_require__(162);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddNewEventComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -735,7 +772,7 @@ var _a;
 
 /***/ }),
 
-/***/ 234:
+/***/ 233:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -753,8 +790,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var AlertsComponent = (function () {
     function AlertsComponent() {
-        this.showAlerts = false;
-        this.messageArray = [""];
     }
     AlertsComponent.prototype.ngOnInit = function () {
     };
@@ -767,7 +802,7 @@ __decorate([
 AlertsComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Component */])({
         selector: 'alerts',
-        template: "\n    \n        <div class=\"alert alert-{{alert.type}} alert-dismissible fade show\" role=\"alert\" >\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                <span aria-hidden=\"true\">&times;</span>\n            </button>\n            <strong>{{alert.message}}</strong> \n        </div>           \n    "
+        template: "\n        <div class=\"alert alert-{{alert.type}} alert-dismissible fade show\" role=\"alert\" >\n            <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n                <span aria-hidden=\"true\">&times;</span>\n            </button>\n            <strong>{{alert.message}}</strong> \n        </div>           \n    "
     })
 ], AlertsComponent);
 
@@ -775,12 +810,12 @@ AlertsComponent = __decorate([
 
 /***/ }),
 
-/***/ 235:
+/***/ 234:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base_Component_action__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base_Component_action__ = __webpack_require__(53);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashBoardcomponent; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -871,12 +906,12 @@ DashBoardcomponent = __decorate([
 
 /***/ }),
 
-/***/ 236:
+/***/ 235:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_event_service__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_event_service__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EventComponent; });
@@ -916,16 +951,16 @@ var _a;
 
 /***/ }),
 
-/***/ 237:
+/***/ 236:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__service_feature_services__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_Component_action__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_feature__ = __webpack_require__(160);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__stories_component__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__base_Component_action__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_feature__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__stories_component__ = __webpack_require__(160);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FeatureComponent; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -963,6 +998,7 @@ var FeatureComponent = (function (_super) {
         _this.selectedFeature = new __WEBPACK_IMPORTED_MODULE_3__model_feature__["a" /* Features */]("", "");
         _this.testNum = 2;
         _this.alertObj = null;
+        _this.isFeatureFound = false;
         _this.getFeatures();
         return _this;
     }
@@ -971,7 +1007,9 @@ var FeatureComponent = (function (_super) {
         this.featureService.getFeatures()
             .subscribe(function (result) {
             _this.features = result;
-            console.log('features :' + JSON.stringify(_this.features));
+            if (result != null && result.length != 0) {
+                _this.isFeatureFound = true;
+            }
         });
     };
     FeatureComponent.prototype.showAddFeature = function () {
@@ -999,6 +1037,9 @@ var FeatureComponent = (function (_super) {
             else if (_this.mode == "update") {
                 _this.alertObj = { type: "success", message: "Feature Updated Succesfully ." };
             }
+            if (_this.features.length > 0) {
+                _this.isFeatureFound = true;
+            }
         });
     };
     FeatureComponent.prototype.editFeature = function (featureId) {
@@ -1013,6 +1054,10 @@ var FeatureComponent = (function (_super) {
             var index = _this.features.indexOf(feature);
             if (index !== -1) {
                 _this.features.splice(index, 1);
+                if (_this.features.length == 0) {
+                    _this.isFeatureFound = false;
+                }
+                _this.alertObj = { type: "success", message: "Feature Deleted Succesfully ." };
             }
         });
     };
@@ -1026,13 +1071,9 @@ var FeatureComponent = (function (_super) {
         }
     };
     FeatureComponent.prototype.open = function (featureId) {
-        console.log('opening feature id:' + featureId);
         var modalRef = this.modalService.open(__WEBPACK_IMPORTED_MODULE_5__stories_component__["a" /* StoryComponent */]);
         modalRef.componentInstance.featureId = featureId;
-        this.featureService.getStoriesByFeature(featureId)
-            .subscribe(function (result) {
-            modalRef.componentInstance.userStories = result;
-        });
+        modalRef.componentInstance.isModel = true;
     };
     FeatureComponent.prototype.addstories = function (featureId) {
         this.selectedFeature = this.getFeature(featureId);
@@ -1046,7 +1087,7 @@ var FeatureComponent = (function (_super) {
 FeatureComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Component */])({
         selector: 'feature',
-        template: "\n    \n        <alerts *ngIf=\"alertObj != null\" [alert]=\"alertObj\" ></alerts>\n        <div>\n            <button class=\"btn btn-primary\" (click)=\"listFeature()\">All Features</button>\n            <button class=\"btn btn-primary\" (click)=\"showAddFeature()\" >Add Features</button>\n        </div>\n        {{enableAddFeature}}\n            <!-- loads child component list task and add new task -->\n            <router-outlet></router-outlet>\n\n            <form *ngIf=\"mode == 'insert' || mode == 'update' \" #featureForm=\"ngForm\" (ngSubmit)=\"processFeature(featureForm)\">\n                    <div class=\"form-group\">\n                        <label for=\"title\">Feature Title</label>\n                        <input type=\"text\" class=\"form-control\" id=\"title\" name=\"title\" placeholder=\"Enter Feature Title\" [(ngModel)]=selectedFeature.title>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"descr\">Feature Title</label>\n                        <input type=\"text\" class=\"form-control\" id=\"descr\" name=\"descr\" placeholder=\"Enter Feature Description\" [(ngModel)]=selectedFeature.descr>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"area\">Feature Title</label>\n                        <input type=\"text\" class=\"form-control\" id=\"area\" name=\"area\" placeholder=\"Enter Feature Area\" [(ngModel)]=selectedFeature.area>\n                    </div>                   \n                    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n                    \n                </form>\n                <br/>\n                <app-add-new-stories  (onVoted)=\"showAlerts($event)\" [selectedFeature]=\"selectedFeature\" [hidden]=\"mode != 'addStories' \"></app-add-new-stories>\n\n                    <table class=\"table table-hover table-responsive table-bordered\" *ngIf=\"mode != 'addStories' \" >\n                        <thead>\n                            <tr>\n                                <th >Title</th>\n                                <th >Descr</th>\n                                <th >Area</th>\n                                <th >User Stories</th>\n                                <th ></th>\n                            </tr>\n                        </thead>\n                        <tbody>\n                            <tr *ngFor=\"let feature of features\">\n                                <td><a  href=\"javascript:void(0);\" (click)=addstories([feature._id])>{{feature.title}}</a></td>\n                                <td>{{feature.descr}}</td>\n                                <td>{{feature.area}}</td>\n                                <td *ngIf =\"feature.userstories == null\" ></td>\n                                <td *ngIf =\"feature.userstories != null\" ><a href=\"javscript:void(0);\" (click)=\"open(feature._id)\" > {{feature.userstories.length}} </a> </td>\n                                <td><a class='btn btn-info btn-xs'  (click)=\"editFeature(feature._id)\"><span class=\"glyphicon glyphicon-edit\"></span> Edit</a> <a (click)=\"deleteFeature(feature)\" class=\"btn btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span> Del</a></td>\n                            </tr>\n                    </tbody>\n                </table>\n\n\n    <button type=\"button\"  *ngIf=\"mode != 'addStories' \" class=\"btn btn-default\" (click)=\"open()\">Open me!</button>\n\n    "
+        template: "\n        \n        <alerts *ngIf=\"alertObj != null\" [alert]=\"alertObj\" ></alerts>\n        <div>\n            <button class=\"btn btn-primary\" (click)=\"listFeature()\">All Features</button>\n            <button class=\"btn btn-primary\" (click)=\"showAddFeature()\" >Add Features</button>\n        </div>\n        {{enableAddFeature}}\n            <!-- loads child component list task and add new task -->\n            <router-outlet></router-outlet>\n\n            <form *ngIf=\"mode == 'insert' || mode == 'update' \" #featureForm=\"ngForm\" (ngSubmit)=\"processFeature(featureForm)\">\n                    <div class=\"form-group\">\n                        <label for=\"title\">Feature Title</label>\n                        <input type=\"text\" class=\"form-control\" id=\"title\" name=\"title\" placeholder=\"Enter Feature Title\" [(ngModel)]=selectedFeature.title>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"descr\">Feature Description</label>\n                        <input type=\"text\" class=\"form-control\" id=\"descr\" name=\"descr\" placeholder=\"Enter Feature Description\" [(ngModel)]=selectedFeature.descr>\n                    </div>\n                    <div class=\"form-group\">\n                        <label for=\"area\">Feature Area</label>\n                        <input type=\"text\" class=\"form-control\" id=\"area\" name=\"area\" placeholder=\"Enter Feature Area\" [(ngModel)]=selectedFeature.area>\n                    </div>                   \n                    <button type=\"submit\" class=\"btn btn-primary\">Submit</button>\n                    \n                </form>\n                <br/>\n                <app-add-new-stories  (onVoted)=\"showAlerts($event)\" [selectedFeature]=\"selectedFeature\" [hidden]=\"mode != 'addStories' \"></app-add-new-stories>\n\n                    <table class=\"table table-hover table-responsive table-bordered\" *ngIf=\"mode != 'addStories' \" >\n                    <tr *ngIf=\"!isFeatureFound; else featureBlock\" ><td>No Feature Found</td></tr>\n                    <ng-template #featureBlock>\n                            <thead>\n                                <tr>\n                                    <th >Title</th>\n                                    <th >Descr</th>\n                                    <th >Area</th>\n                                    <th >User Stories</th>\n                                    <th ></th>\n                                </tr>\n                            </thead>\n                            <tbody>\n                                <tr *ngFor=\"let feature of features\">\n                                    <td><a  href=\"javascript:void(0);\" (click)=addstories([feature._id])>{{feature.title}}</a></td>\n                                    <td>{{feature.descr}}</td>\n                                    <td>{{feature.area}}</td>\n                                    <td *ngIf =\"feature.userstory == null\" ></td>\n                                    <td *ngIf =\"feature.userstory != null\" ><a href=\"javscript:void(0);\" (click)=\"open(feature._id)\" > {{feature.userstory.length}} </a> </td>\n                                    <td><a class='btn btn-info btn-xs'  (click)=\"editFeature(feature._id)\"><span class=\"glyphicon glyphicon-edit\"></span> Edit</a> <a (click)=\"deleteFeature(feature)\" class=\"btn btn-danger btn-xs\"><span class=\"glyphicon glyphicon-remove\"></span> Del</a></td>\n                                </tr>\n                        </tbody>\n                    </ng-template>\n                </table>\n                \n\n    "
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__service_feature_services__["a" /* FeatureServices */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__service_feature_services__["a" /* FeatureServices */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__["c" /* NgbModal */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__ng_bootstrap_ng_bootstrap__["c" /* NgbModal */]) === "function" && _b || Object])
 ], FeatureComponent);
@@ -1056,13 +1097,12 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 238:
+/***/ 237:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_firebase__ = __webpack_require__(177);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_firebase__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base_firebaseConfig__ = __webpack_require__(159);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FileUploadComponents; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1078,20 +1118,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var FileUploadComponents = (function () {
     function FileUploadComponents() {
         var _this = this;
-        var config = {
-            apiKey: "AIzaSyDp5PfXL2nQWqrKumXCuYUQSgVpW8HX9_U",
-            authDomain: "tfsmean.firebaseapp.com",
-            databaseURL: "https://tfsmean.firebaseio.com",
-            projectId: "tfsmean",
-            storageBucket: "tfsmean.appspot.com",
-            messagingSenderId: "378897946454"
-        };
-        __WEBPACK_IMPORTED_MODULE_1_firebase__["initializeApp"](config);
-        this.storage = __WEBPACK_IMPORTED_MODULE_1_firebase__["storage"]();
-        this.database = __WEBPACK_IMPORTED_MODULE_1_firebase__["database"]();
-        var storageRef = this.storage.ref();
-        var imgRef = storageRef.child('images/Koala.jpg');
-        imgRef.getDownloadURL().then(function (url) {
+        this.firebase = __WEBPACK_IMPORTED_MODULE_1__base_firebaseConfig__["a" /* FirebaseConfig */].initialize();
+        this.firebase.downloadImage('images/Koala.jpg').then(function (url) {
             _this.image = url;
         });
     }
@@ -1102,16 +1130,15 @@ var FileUploadComponents = (function () {
             var file = fileList[i];
             var formData = new FormData();
             formData.append('uploadFile', file, file.name);
-            var storageRef = this.storage.ref();
-            var imgRef = storageRef.child('images/' + file.name);
-            imgRef.put(file).then(function (snapshot) {
+            this.firebase.addToStorage('images', file.name, file)
+                .then(function (snapshot) {
                 var metaData = {
                     "bucket": snapshot.metadata.bucket, "fullPath": snapshot.metadata.fullPath,
                     "name": snapshot.metadata.name, "size": snapshot.metadata.size,
                     "contentType": snapshot.metadata.contentType,
                     "downloadURLs": snapshot.metadata.downloadURLs[0]
                 };
-                _this.database.ref('images/' + snapshot.metadata.generation).set(metaData);
+                _this.firebase.addToDatabase('images', snapshot.metadata.generation, metaData);
             });
         }
     };
@@ -1120,7 +1147,7 @@ var FileUploadComponents = (function () {
 FileUploadComponents = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["d" /* Component */])({
         selector: 'uploads',
-        template: "\n                <script src=\"assets/js/upload.js\"></script>\n                 <link href=\"assets/css/upload.css\" rel=\"stylesheet\">\n                 <div class=\"fileupload fileupload-new\" data-provides=\"fileupload\">\n                    <span class=\"btn btn-primary btn-file\"><span class=\"fileupload-new\">Select file</span>\n                    <span class=\"fileupload-exists\">Change</span>         <input type=\"file\" id=\"file\" multiple (change)=\"fileChange($event)\" /></span>\n                    <span class=\"fileupload-preview\"></span>\n                    <a href=\"#\" class=\"close fileupload-exists\" data-dismiss=\"fileupload\" style=\"float: none\">\u00D7</a>\n                    <button type=\"button\" class=\"btn btn-default\">Upload</button>\n                </div>\n                <img src=\"{{image}}\"/>\n                \n                "
+        template: "\n    \n        <script src=\"assets/js/upload.js\"></script>\n        <link href=\"assets/css/upload.css\" rel=\"stylesheet\">\n        <div class=\"fileupload fileupload-new\" data-provides=\"fileupload\">\n        <span class=\"btn btn-primary btn-file\"><span class=\"fileupload-new\">Select file</span>\n        <span class=\"fileupload-exists\">Change</span>         <input type=\"file\" id=\"file\" multiple (change)=\"fileChange($event)\" /></span>\n        <span class=\"fileupload-preview\"></span>\n        <a href=\"#\" class=\"close fileupload-exists\" data-dismiss=\"fileupload\" style=\"float: none\">\u00D7</a>\n        <button type=\"button\" class=\"btn btn-default\">Upload</button>\n        </div>\n        <img src=\"{{image}}\"/>\n                \n                "
     }),
     __metadata("design:paramtypes", [])
 ], FileUploadComponents);
@@ -1129,14 +1156,14 @@ FileUploadComponents = __decorate([
 
 /***/ }),
 
-/***/ 239:
+/***/ 238:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__(50);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_Component_action__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_Component_action__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__base_member__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__service_login_service__ = __webpack_require__(86);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return LoginComponent; });
@@ -1204,16 +1231,16 @@ var _a, _b, _c;
 
 /***/ }),
 
-/***/ 240:
+/***/ 239:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__(50);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_http__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_Component_action__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__base_Component_action__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__base_member__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__base_firebaseConfig__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__base_firebaseConfig__ = __webpack_require__(159);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return RegisterComponent; });
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -1295,7 +1322,7 @@ var _a, _b;
 
 /***/ }),
 
-/***/ 241:
+/***/ 240:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1342,7 +1369,7 @@ var _a;
 
 /***/ }),
 
-/***/ 242:
+/***/ 241:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1359,12 +1386,12 @@ var UserStories = (function () {
 
 /***/ }),
 
-/***/ 243:
+/***/ 242:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__addtask_service__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__addtask_service__ = __webpack_require__(165);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddNewTaskComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -1400,12 +1427,12 @@ var _a;
 
 /***/ }),
 
-/***/ 244:
+/***/ 243:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__task_service__ = __webpack_require__(165);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__task_service__ = __webpack_require__(166);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TaskComponent; });
@@ -1449,7 +1476,7 @@ var _a;
 /***/ 304:
 /***/ (function(module, exports) {
 
-module.exports = "\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n    <meta name=\"description\" content=\"\">\r\n    <meta name=\"author\" content=\"\">\r\n    <link rel=\"icon\" href=\"../../favicon.ico\">\r\n\r\n    <title>Dashboard Template for Bootstrap</title>\r\n\r\n\r\n\r\n    <!-- Custom styles for this template -->\r\n    <link href=\"assets/css/dashboard.css\" rel=\"stylesheet\">\r\n  </head>\r\n\r\n  <body>\r\n    <nav class=\"navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse\">\r\n      <button class=\"navbar-toggler navbar-toggler-right hidden-lg-up\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n        <span class=\"navbar-toggler-icon\"></span>\r\n      </button>\r\n      <a class=\"navbar-brand\" href=\"#\">TFS Dashboard</a>\r\n    </nav>\r\n\r\n    <div class=\"container-fluid\">\r\n      <div class=\"row\">\r\n        <nav class=\"col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar\">\r\n          <ul class=\"nav nav-pills flex-column\">\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link active\" [routerLink]=\"['feature']\">Features <span class=\"sr-only\">(current)</span></a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['task']\">Task</a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['events']\">Events</a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['weather']\">Weather</a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['uploads']\">Upload</a>\r\n            </li>\r\n          </ul>\r\n        </nav>\r\n\r\n        <main class=\"col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3\">\r\n          <router-outlet></router-outlet>\r\n        </main>\r\n      </div>\r\n    </div>\r\n\r\n\r\n  </body>\r\n</html>\r\n"
+module.exports = "\r\n<!DOCTYPE html>\r\n<html lang=\"en\">\r\n  <head>\r\n    <meta charset=\"utf-8\">\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\">\r\n    <meta name=\"description\" content=\"\">\r\n    <meta name=\"author\" content=\"\">\r\n    <link rel=\"icon\" href=\"../../favicon.ico\">\r\n\r\n    <title>Dashboard Template for Bootstrap</title>\r\n\r\n\r\n\r\n    <!-- Custom styles for this template -->\r\n    <link href=\"assets/css/dashboard.css\" rel=\"stylesheet\">\r\n  </head>\r\n\r\n  <body>\r\n    <nav class=\"navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse\">\r\n      <button class=\"navbar-toggler navbar-toggler-right hidden-lg-up\" type=\"button\" data-toggle=\"collapse\" data-target=\"#navbarsExampleDefault\" aria-controls=\"navbarsExampleDefault\" aria-expanded=\"false\" aria-label=\"Toggle navigation\">\r\n        <span class=\"navbar-toggler-icon\"></span>\r\n      </button>\r\n      <a class=\"navbar-brand\" href=\"#\">TFS Dashboard</a>\r\n    </nav>\r\n\r\n    <div class=\"container-fluid\">\r\n      <div class=\"row\">\r\n        <nav class=\"col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar\">\r\n          <ul class=\"nav nav-pills flex-column\">\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link active\" [routerLink]=\"['feature']\">Features <span class=\"sr-only\">(current)</span></a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['task']\">Task</a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['events']\">Events</a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['stories']\">Stories</a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['weather']\">Weather</a>\r\n            </li>\r\n            <li class=\"nav-item\">\r\n              <a class=\"nav-link\" [routerLink]=\"['uploads']\">Upload</a>\r\n            </li>\r\n          </ul>\r\n        </nav>\r\n\r\n        <main class=\"col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3\">\r\n          <router-outlet></router-outlet>\r\n        </main>\r\n      </div>\r\n    </div>\r\n\r\n\r\n  </body>\r\n</html>\r\n"
 
 /***/ }),
 
@@ -1460,7 +1487,7 @@ module.exports = "\r\n\r\n\r\n  <form class=\"navbar-form\" role=\"search\">\r\n
 
 /***/ }),
 
-/***/ 52:
+/***/ 53:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

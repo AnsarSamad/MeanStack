@@ -12,7 +12,7 @@ import { StoryComponent } from './stories.component'
     moduleId: module.id,
     selector: 'feature',
     template: `
-    
+        
         <alerts *ngIf="alertObj != null" [alert]="alertObj" ></alerts>
         <div>
             <button class="btn btn-primary" (click)="listFeature()">All Features</button>
@@ -28,11 +28,11 @@ import { StoryComponent } from './stories.component'
                         <input type="text" class="form-control" id="title" name="title" placeholder="Enter Feature Title" [(ngModel)]=selectedFeature.title>
                     </div>
                     <div class="form-group">
-                        <label for="descr">Feature Title</label>
+                        <label for="descr">Feature Description</label>
                         <input type="text" class="form-control" id="descr" name="descr" placeholder="Enter Feature Description" [(ngModel)]=selectedFeature.descr>
                     </div>
                     <div class="form-group">
-                        <label for="area">Feature Title</label>
+                        <label for="area">Feature Area</label>
                         <input type="text" class="form-control" id="area" name="area" placeholder="Enter Feature Area" [(ngModel)]=selectedFeature.area>
                     </div>                   
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -42,29 +42,30 @@ import { StoryComponent } from './stories.component'
                 <app-add-new-stories  (onVoted)="showAlerts($event)" [selectedFeature]="selectedFeature" [hidden]="mode != 'addStories' "></app-add-new-stories>
 
                     <table class="table table-hover table-responsive table-bordered" *ngIf="mode != 'addStories' " >
-                        <thead>
-                            <tr>
-                                <th >Title</th>
-                                <th >Descr</th>
-                                <th >Area</th>
-                                <th >User Stories</th>
-                                <th ></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let feature of features">
-                                <td><a  href="javascript:void(0);" (click)=addstories([feature._id])>{{feature.title}}</a></td>
-                                <td>{{feature.descr}}</td>
-                                <td>{{feature.area}}</td>
-                                <td *ngIf ="feature.userstories == null" ></td>
-                                <td *ngIf ="feature.userstories != null" ><a href="javscript:void(0);" (click)="open(feature._id)" > {{feature.userstories.length}} </a> </td>
-                                <td><a class='btn btn-info btn-xs'  (click)="editFeature(feature._id)"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a (click)="deleteFeature(feature)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
-                            </tr>
-                    </tbody>
+                    <tr *ngIf="!isFeatureFound; else featureBlock" ><td>No Feature Found</td></tr>
+                    <ng-template #featureBlock>
+                            <thead>
+                                <tr>
+                                    <th >Title</th>
+                                    <th >Descr</th>
+                                    <th >Area</th>
+                                    <th >User Stories</th>
+                                    <th ></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let feature of features">
+                                    <td><a  href="javascript:void(0);" (click)=addstories([feature._id])>{{feature.title}}</a></td>
+                                    <td>{{feature.descr}}</td>
+                                    <td>{{feature.area}}</td>
+                                    <td *ngIf ="feature.userstory == null" ></td>
+                                    <td *ngIf ="feature.userstory != null" ><a href="javscript:void(0);" (click)="open(feature._id)" > {{feature.userstory.length}} </a> </td>
+                                    <td><a class='btn btn-info btn-xs'  (click)="editFeature(feature._id)"><span class="glyphicon glyphicon-edit"></span> Edit</a> <a (click)="deleteFeature(feature)" class="btn btn-danger btn-xs"><span class="glyphicon glyphicon-remove"></span> Del</a></td>
+                                </tr>
+                        </tbody>
+                    </ng-template>
                 </table>
-
-
-    <button type="button"  *ngIf="mode != 'addStories' " class="btn btn-default" (click)="open()">Open me!</button>
+                
 
     `
 
@@ -78,6 +79,8 @@ export class FeatureComponent extends ComponentAction {
     selectedFeature: Features = new Features("", "");
     testNum: number = 2;
     alertObj: object = null;
+    isFeatureFound: boolean = false;
+
 
     constructor(private featureService: FeatureServices, private modalService: NgbModal) {
         super();
@@ -88,7 +91,9 @@ export class FeatureComponent extends ComponentAction {
         this.featureService.getFeatures()
             .subscribe(result => {
                 this.features = result;
-                console.log('features :' + JSON.stringify(this.features));
+                if (result != null && result.length != 0) {
+                    this.isFeatureFound = true;
+                }
             })
     }
 
@@ -113,10 +118,12 @@ export class FeatureComponent extends ComponentAction {
                 if (this.mode == "insert") {
                     this.features.push(result);
                     this.alertObj = { type: "success", message: "Feature added Succesfully ." };
-                    
+
                 } else if (this.mode == "update") {
                     this.alertObj = { type: "success", message: "Feature Updated Succesfully ." };
-                    
+                }
+                if (this.features.length > 0) {
+                    this.isFeatureFound = true;
                 }
 
             })
@@ -124,7 +131,6 @@ export class FeatureComponent extends ComponentAction {
     editFeature(featureId: string) {
         this.selectedFeature = this.getFeature(featureId);
         this.mode = "update";
-
     }
     deleteFeature(feature: Features) {
         this.mode = "delete";
@@ -133,6 +139,10 @@ export class FeatureComponent extends ComponentAction {
                 let index: number = this.features.indexOf(feature);
                 if (index !== -1) {
                     this.features.splice(index, 1);
+                    if (this.features.length == 0) {
+                        this.isFeatureFound = false;
+                    }
+                    this.alertObj = { type: "success", message: "Feature Deleted Succesfully ." };
                 }
             })
     }
@@ -148,13 +158,9 @@ export class FeatureComponent extends ComponentAction {
     }
 
     open(featureId) {
-        console.log('opening feature id:' + featureId);
         const modalRef = this.modalService.open(StoryComponent);
         modalRef.componentInstance.featureId = featureId;
-        this.featureService.getStoriesByFeature(featureId)
-            .subscribe(result => {
-                modalRef.componentInstance.userStories = result;
-            })
+        modalRef.componentInstance.isModel = true;
     }
 
     addstories(featureId) {

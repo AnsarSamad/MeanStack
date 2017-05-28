@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
             feature.created = req.body.feature.created;
             feature.modified = req.body.feature.modified;
             feature.area = req.body.feature.area;
-            feature.userstory = req.body.feature.userstories;
+            feature.userstory = req.body.feature.userstory;
             if (typeof req.body.feature.createdby == 'undefined') {
                 feature.createdby = null;
             } else {
