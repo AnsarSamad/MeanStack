@@ -12,17 +12,21 @@ module.exports = function (passport) {
             passwordField: 'password'
         },
         function (username, password, callback) {
-            User.findOne({ local: { email: username, password: password } }, function (err, response) {
+            User.findOne({ 'local.email': username, 'local.password': password }, function (err, response) {
                 var isadmine = false;
+                var isactive = false;
                 if ((err != null && err) || response == null) {
                     var obj = { isvalid: false }
                     return callback(null, obj); // user not exist
                 } else {
                     //identify weather this user is a admin user or not                
-                    if (typeof response.isadmine != 'undefined' && response.isadmine == "true") {
+                    if (typeof response.isadmine != 'undefined' && response.isadmine == true) {
                         isadmine = true;
                     }
-                    var obj = { isvalid: true, isadmin: isadmine, userID: response._id }
+                    if (typeof response.isactive != 'undefined' && response.isactive == true) {
+                        isactive = true;
+                    }
+                    var obj = { isvalid: true, isadmine: isadmine, isactive: isactive, userID: response._id }
                     return callback(null, obj); //user exist //isadmin
                 }
             })

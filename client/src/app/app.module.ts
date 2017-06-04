@@ -27,6 +27,9 @@ import { StoryService } from './service/story.service'
 import { LoginRouteGuard } from '../app/base/login.route.guards';
 import { LoginService } from '../app/service/login.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserComponent } from '../app/controller/user.component';
+import { UserService } from '../app/service/user.service'
+import { UserControlRouteGuard } from '../app/base/User.route.guards'
 
 //index routing , redirect to login for the blank request
 const indexRoutes: Route = {
@@ -94,6 +97,11 @@ const routes: Routes = [
         path: 'stories',
         component: StoryComponent
       },
+      {
+        path: 'users',
+        component: UserComponent,
+        canActivate: [UserControlRouteGuard]
+      }
 
     ]
   }
@@ -113,13 +121,15 @@ export const routing = RouterModule.forRoot(routes);
   providers: [
     LoginService,
     LoginRouteGuard,
+    UserControlRouteGuard,
     TaskService,
     EventService,
     AddEventService,
     AddTaskService,
     FeatureServices,
     StoryService,
-    NgbActiveModal
+    NgbActiveModal,
+    UserService
   ],
   declarations: [
     AppComponent,
@@ -135,7 +145,8 @@ export const routing = RouterModule.forRoot(routes);
     FileUploadComponents,
     AddNewStoriesComponent,
     AlertsComponent,
-    StoryComponent
+    StoryComponent,
+    UserComponent
   ],
   entryComponents: [StoryComponent],
   bootstrap: [

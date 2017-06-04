@@ -26,7 +26,7 @@
 
     <div class="container-fluid">
       <div class="row">
-        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+        <nav class="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar" style="background: black;">
           <ul class="nav nav-pills flex-column">
             <li class="nav-item">
               <a class="nav-link active" [routerLink]="['feature']">Features <span class="sr-only">(current)</span></a>
@@ -40,15 +40,19 @@
             <li class="nav-item">
               <a class="nav-link" [routerLink]="['stories']">Stories</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" [routerLink]="['weather']">Weather</a>
+            <!--  route guards are also added for security to this feature-->
+            <li class="nav-item" *ngIf="member.isadmine">
+              <a class="nav-link" [routerLink]="['users']">User Management</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" [routerLink]="['uploads']">Upload</a>
+              <a class="nav-link" [routerLink]="['weather']">Check Weather</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" [routerLink]="['uploads']">File Upload</a>
             </li>
           </ul>
         </nav>
-
+        
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
           <router-outlet></router-outlet>
         </main>

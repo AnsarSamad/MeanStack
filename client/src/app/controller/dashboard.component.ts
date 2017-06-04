@@ -1,9 +1,9 @@
-import{Component} from '@angular/core'
-import {ComponentAction} from '../base/Component.action'
-
+import { Component } from '@angular/core'
+import { ComponentAction } from '../base/Component.action'
+import { Member } from '../base/member'
 @Component({
-    moduleId:module.id,
-    selector:'dashboard',
+    moduleId: module.id,
+    selector: 'dashboard',
     /*template:`
     
     <body>
@@ -50,16 +50,16 @@ import {ComponentAction} from '../base/Component.action'
       </div>
     </body>
     `*/
-    templateUrl:'../html/dashboard.html'
-    
+    templateUrl: '../html/dashboard.html'
+
 })
 export class DashBoardcomponent extends ComponentAction {
-    user:String;
+    user: String;
     private sub: any;
-    constructor(){
+    member: Member
+    constructor() {
         super();
-        this.user = super.getMember().membername;
-        console.log('dash constructor')
+        this.member = super.getMember();
     }
 
 }

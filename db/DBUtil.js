@@ -20,8 +20,13 @@ function isUserExist(username, password) {
 
 }
 
-function addLocalUser(username, password, isadmin) {
-    var localUser = new User({ local: { email: username, password: password }, isadmin: isadmin })
+function addLocalUser(username, password) {
+    var localUser = new User();
+    localUser.isadmine = false;
+    localUser.isactive = false;
+    localUser.local.email = username;
+    localUser.local.password = password;
+
     return new Promise(function (resolve, reject) {
         localUser.save(function (err, user) {
             if (err) {
@@ -31,7 +36,6 @@ function addLocalUser(username, password, isadmin) {
             }
         });
     });
-
 }
 
 module.exports = {

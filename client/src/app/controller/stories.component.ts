@@ -13,6 +13,8 @@ import { UserStories } from '../model/userStory'
             </div>
             <div class="modal-body">
             <table class="table table-hover table-responsive table-bordered" *ngIf="mode != 'addStories' " >
+            <tr *ngIf="!isStoriesFound; else storiesBlock" ><td>No Stories Found</td></tr>
+            <ng-template #storiesBlock>
                         <thead>
                             <tr>
                                 <th >Title</th>
@@ -36,6 +38,7 @@ import { UserStories } from '../model/userStory'
                                 
                             </tr>
                     </tbody>
+                    </ng-template>
                 </table>
 
 
@@ -51,6 +54,7 @@ export class StoryComponent implements OnInit {
     @Input() featureId: string;
     userStories: UserStories[];
     isModel: boolean;
+    isStoriesFound:boolean = false;
     constructor(public activeModal: NgbActiveModal, private storyService: StoryService) {
         // the values set by ngbmodel service is not accessable in constructor
         // accessable only in OnInit()
@@ -68,6 +72,9 @@ export class StoryComponent implements OnInit {
                 .subscribe((result) => {
                     this.userStories = result;
                 })
+        }
+        if (typeof this.userStories != "undefined" && this.userStories.length > 0) {
+            this.isStoriesFound = true;
         }
     }
 

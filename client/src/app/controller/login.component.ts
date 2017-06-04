@@ -39,6 +39,7 @@ import { LoginService } from '../service/login.service'
 
 export class LoginComponent extends ComponentAction {
     isloggedIn: boolean = true;
+    isactive: boolean = false;
     constructor(private http: Http, private router: Router, private loginService: LoginService) {
         super();
     }
@@ -48,7 +49,10 @@ export class LoginComponent extends ComponentAction {
         this.loginService.loging(ngform.value.inputEmail, ngform.value.inputPassword)
             .subscribe((result) => {
                 this.isloggedIn = result.isvalid;
-                if (this.isloggedIn) {
+                this.isactive = result.isactive;
+                if (!this.isactive) {
+                    alert('This User is not yet approved by the admine.please try again later.');
+                } else if (this.isloggedIn) {
                     let member = new Member(result.userID, user, result.isadmine);
                     super.setMember(member);
                     this.loginService.setLoginStatus(true);
