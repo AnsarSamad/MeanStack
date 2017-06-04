@@ -40,6 +40,7 @@ import { LoginService } from '../service/login.service'
 export class LoginComponent extends ComponentAction {
     isloggedIn: boolean = true;
     isactive: boolean = false;
+    isadmine: boolean = false
     constructor(private http: Http, private router: Router, private loginService: LoginService) {
         super();
     }
@@ -50,12 +51,14 @@ export class LoginComponent extends ComponentAction {
             .subscribe((result) => {
                 this.isloggedIn = result.isvalid;
                 this.isactive = result.isactive;
+                this.isadmine = result.isadmine;
                 if (!this.isactive) {
                     alert('This User is not yet approved by the admine.please try again later.');
                 } else if (this.isloggedIn) {
-                    let member = new Member(result.userID, user, result.isadmine);
+                    let member = new Member(result.userID, user, this.isadmine);
                     super.setMember(member);
                     this.loginService.setLoginStatus(true);
+                    this.loginService.setAdmin(this.isadmine);
                     this.router.navigate(['./dash'])
                 }
             })

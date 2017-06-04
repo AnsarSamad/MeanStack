@@ -1,8 +1,8 @@
 export class Member{
     memberId : String
     membername:String
-    isadmine:String
-    constructor(memberId:String, name:String,admine:String){
+    isadmine:boolean
+    constructor(memberId:String, name:String,admine:boolean){
         this.memberId = memberId;
         this.membername = name;
         this.isadmine = admine;

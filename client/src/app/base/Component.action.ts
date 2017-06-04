@@ -9,7 +9,7 @@ export abstract class ComponentAction {
     }
     getMember() {
         if (ComponentAction.member == null || typeof ComponentAction.member == 'undefined' ) {
-            return new Member("", "false", "");
+            return new Member("", "false", false);
         } else {
             return ComponentAction.member;
         }

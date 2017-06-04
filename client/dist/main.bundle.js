@@ -1303,6 +1303,7 @@ var LoginComponent = (function (_super) {
         _this.loginService = loginService;
         _this.isloggedIn = true;
         _this.isactive = false;
+        _this.isadmine = false;
         return _this;
     }
     LoginComponent.prototype.validate = function (ngform) {
@@ -1312,13 +1313,15 @@ var LoginComponent = (function (_super) {
             .subscribe(function (result) {
             _this.isloggedIn = result.isvalid;
             _this.isactive = result.isactive;
+            _this.isadmine = result.isadmine;
             if (!_this.isactive) {
                 alert('This User is not yet approved by the admine.please try again later.');
             }
             else if (_this.isloggedIn) {
-                var member = new __WEBPACK_IMPORTED_MODULE_4__base_member__["a" /* Member */](result.userID, user, result.isadmine);
+                var member = new __WEBPACK_IMPORTED_MODULE_4__base_member__["a" /* Member */](result.userID, user, _this.isadmine);
                 _super.prototype.setMember.call(_this, member);
                 _this.loginService.setLoginStatus(true);
+                _this.loginService.setAdmin(_this.isadmine);
                 _this.router.navigate(['./dash']);
             }
         });
@@ -1668,7 +1671,7 @@ var ComponentAction = (function () {
     };
     ComponentAction.prototype.getMember = function () {
         if (ComponentAction.member == null || typeof ComponentAction.member == 'undefined') {
-            return new __WEBPACK_IMPORTED_MODULE_0__member__["a" /* Member */]("", "false", "");
+            return new __WEBPACK_IMPORTED_MODULE_0__member__["a" /* Member */]("", "false", false);
         }
         else {
             return ComponentAction.member;
